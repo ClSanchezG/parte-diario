@@ -153,7 +153,6 @@ function createPreview(){
         let cpT = cps[i].querySelector(".voluntario-t").value;
         let cpNC = cps[i].querySelector(".voluntario-nc").value;
         let cpB = cps[i].querySelector(".beneficiado").value;
-
         text += 'Consejo Popular: *' + cp + '*\n';
 
         let toAppend = '<div class="v-cp card">' +
@@ -185,18 +184,28 @@ function createPreview(){
         text += '\n';
         toAppend += '</div>';
 
-        console.log(toAppend);
-
         area.append(toAppend);
     }
 
+    let a = $("#ausente").val();
+    let comentario = $("#comentario").val();
     let vt = e + t + nc;
 
-    text += '*Total Voluntarios: ' + vt + '*\n'+
-        '*Total Beneficiados: ' + b + '*\n';
+    if(!a){
+        a=0;
+    }
 
-    area.append('<h6>Total Voluntarios: '+ vt +'</h6>'+
+    text += 'Ausentes: *' + vt + '*\n'+
+        '*Total Voluntarios: ' + vt + '*\n'+
+        '*Total Beneficiados: ' + b + '*\n\n  ' +
+        '_' + comentario + '_';
+
+    area.append('<span>Ausentes: '+ a + '</span>' +
+        '<br>' +
+        '<h6>Total Voluntarios: '+ vt +'</h6>'+
         '<h6>Total Beneficiados: '+ b +'</h6>');
-    area.append('<textarea class="form-control">'+ text +'</textarea>');
+    area.append('<div id="v-comentario"><p>'+ comentario +'</p></div>');
+
+    area.append('<textarea  class="form-control">'+ text +'</textarea>');
     area.append('<a class="btn btn-info" href="https://wa.me/?text=' + text +'" target="_blank">Enviar por Whatsapp</a>')
 }

@@ -35,6 +35,12 @@ button {
     padding: 5px;
 }
 
+#v-comentario {
+    padding: 0 10px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+}
+
 textarea{
     min-height: 25vh;
 }

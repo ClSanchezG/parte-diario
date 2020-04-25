@@ -2,6 +2,11 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Formato de envio de partes diarios de la CUJAE
+     del movimento de voluntarios COVID-19">
+    <meta name="keywords" content="form js volunteers format whatsapp">
+    <meta name="author" content="Claudia Sánchez García, CUJAE">
+    <meta name="robots" content="noindex">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >
     <title>Parte Diario</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -27,7 +32,14 @@
             <div id="cp-container">
             </div>
             <button class="btn btn-success" onclick="addconsejoPopular()">+ Consejo Popular</button>
-
+            <div class="form-group">
+                <label for="ausente">Ausentes</label>
+                <input class="form-control ausente" name='ausentes' type="text" id="ausente">
+            </div>
+            <div class="form-group">
+                <label for="comentario">Comentario</label>
+                <textarea class="form-control" id="comentario"></textarea>
+            </div>
         </div>
 
         <div class="col-xl-6 col-sm-12 pt-sm-4 mt-sm-3" id="v-container">
