@@ -215,5 +215,6 @@ function createPreview(){
     area.append('<div id="v-comentario"><p>'+ comentario +'</p></div>');
 
     area.append('<textarea  class="form-control">'+ text +'</textarea>');
-    //area.append('<a class="btn btn-info" href="https://wa.me/?text=' + text +'" target="_blank">Enviar por Whatsapp</a>')
+    area.append('<a class="btn btn-info" href="whatsapp://send?text=' + encodeURIComponent(text) +'" target="_blank" ' +
+        'action="share/whatsapp/share" >Enviar por Whatsapp</a>');
 }
