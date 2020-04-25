@@ -91,6 +91,10 @@ function addconsejoPopular() {
         ' <label for="beneficiado-'+ count +'">Beneficiados</label>' +
         ' <input class="form-control beneficiado" name="b" type="number" id="beneficiado-'+ count +'" min="0">' +
         ' </div>' +
+        ' <div class="form-group">' +
+        ' <label for="ausente-'+ count +'">Ausentes</label>' +
+        ' <input class="form-control ausente" name="a" type="number" id="ausente-'+ count +'" min="0">' +
+        ' </div>' +
         ' <div class="text-right">' +
         ' <button class="btn btn-danger btn-sm" onclick="deleteConsejoPopular('+ count +')">Eliminar</button>' +
         ' </div>' +
@@ -144,6 +148,7 @@ function createPreview(){
     let t = 0;
     let nc = 0;
     let b = 0;
+    let a = 0;
 
     let cps = document.querySelectorAll('.cp-data');
     console.log(cps);
@@ -153,6 +158,7 @@ function createPreview(){
         let cpT = cps[i].querySelector(".voluntario-t").value;
         let cpNC = cps[i].querySelector(".voluntario-nc").value;
         let cpB = cps[i].querySelector(".beneficiado").value;
+        let cpA = cps[i].querySelector(".ausente").value;
         text += 'Consejo Popular: *' + cp + '*\n';
 
         let toAppend = '<div class="v-cp card">' +
@@ -181,31 +187,33 @@ function createPreview(){
             b += parseInt(cpB);
             toAppend += '<span>Beneficiados: '+ cpB + '</span>';
         }
+
+        if (cpA){
+            text += ' Ausentes: *'+ cpA + '*\n';
+            a += parseInt(cpA);
+            toAppend += '<span>Ausentes: '+ cpA + '</span>';
+        }
+
         text += '\n';
         toAppend += '</div>';
 
         area.append(toAppend);
     }
 
-    let a = $("#ausente").val();
     let comentario = $("#comentario").val();
     let vt = e + t + nc;
 
-    if(!a){
-        a=0;
-    }
-
-    text += 'Ausentes: *' + vt + '*\n'+
+    text += 'Total Ausentes: *' + a + '*\n'+
         '*Total Voluntarios: ' + vt + '*\n'+
-        '*Total Beneficiados: ' + b + '*\n\n  ' +
+        '*Total Beneficiados: ' + a + '*\n\n  ' +
         '_' + comentario + '_';
 
-    area.append('<span>Ausentes: '+ a + '</span>' +
+    area.append('<span>Total Ausentes: '+ a + '</span>' +
         '<br>' +
         '<h6>Total Voluntarios: '+ vt +'</h6>'+
         '<h6>Total Beneficiados: '+ b +'</h6>');
     area.append('<div id="v-comentario"><p>'+ comentario +'</p></div>');
 
     area.append('<textarea  class="form-control">'+ text +'</textarea>');
-    area.append('<a class="btn btn-info" href="https://wa.me/?text=' + text +'" target="_blank">Enviar por Whatsapp</a>')
+    //area.append('<a class="btn btn-info" href="https://wa.me/?text=' + text +'" target="_blank">Enviar por Whatsapp</a>')
 }
