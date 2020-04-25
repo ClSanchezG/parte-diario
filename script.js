@@ -30,7 +30,6 @@ $(document).ready(function () {
 
 
 municipio.on('change',function () {
-    console.log($(this).val());
     let cps = getConsejosPopulares();
     $('.consejo-popular').html('<option value="0">-</option>').disabled = false;
     let mun = $(this).val();
@@ -39,6 +38,7 @@ municipio.on('change',function () {
             $('.consejo-popular').append('<option value="'+ value.cp +'">'+ value.cp +'</ooption>');
         }
     });
+    municipio = $(this);
 });
 
 function updateTotalVoluntario(idCP) {
@@ -100,7 +100,7 @@ function addconsejoPopular() {
     let cps = getConsejosPopulares();
     $('#cp'+count).html('<option value="0">-</option>').disabled = false;
     $.each(cps, function (index, value) {
-        if (value.municipio === mun){
+        if (value.municipio === municipio.val()){
             $('#cp'+count).append('<option value="'+ value.cp +'">'+ value.cp +'</ooption>');
         }
     });
@@ -111,10 +111,27 @@ function deleteConsejoPopular(idCP) {
     $("#cp-form"+ idCP ).remove();
 }
 
+function formatoFecha(date) {
+    let dd = '';
+    let mm = '';
+    let yyyy = '';
+    for (let i = 0 ; i<date.length ; i++){
+        if(i<4) {
+            yyyy += date[i];
+        }
+        else if(i>4 && i<7){
+            mm += date[i];
+        }
+        else if(i>7){
+            dd += date[i];
+        }
+    }
+    return dd+'/'+mm+'/'+yyyy;
+}
+
 function createPreview(){
-    let dateInput = $('#date').val();
-    let date = dateInput;
-    let area = $('#vista-previa');
+    let date = formatoFecha($('#date').val());
+    let area = $('#vista-previa').addClass('card');
     area.html(
         '<h4>'+ municipio.val() +'</h4>'+
         '<h5>Día: '+ date +'</h5>'
@@ -180,5 +197,6 @@ function createPreview(){
 
     area.append('<h6>Total Voluntarios: '+ vt +'</h6>'+
         '<h6>Total Beneficiados: '+ b +'</h6>');
-    area.append('<textarea>'+ text +'</textarea>');
+    area.append('<textarea class="form-control">'+ text +'</textarea>');
+    area.append('<a class="btn btn-info" href="https://wa.me/?text=' + text +'" target="_blank">Enviar por Whatsapp</a>')
 }
