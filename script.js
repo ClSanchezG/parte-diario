@@ -1,5 +1,30 @@
 let municipio = $('#municipio');
+const json_format =  {
+    fecha: '',
+    municipios: [
+        {
+            nombre: '',
+            consejosPopulares: [
+                {
+                    nombre: '',
+                    estudiantes: '',
+                    trabajadores: '',
+                    no_cujae: '',
+                    ausentes: '',
+                    beneficiados: '',
+                },
+            ],
+            comentario: '',
+            total_ausentes: '',
+            total_voluntarios: '',
+            total_beneficiados: '',
+        }
+    ],
+}; //Estructura de Datos
 
+/** Obtiene los consejos Populares correspondientes con sus municipios
+ * @returns {[]} arreglo de consejos populares (municipio, cp)
+ */
 function getConsejosPopulares() {
     let cps = [];
     for (let i = 0; i < municipios.length; i++) {
@@ -14,6 +39,9 @@ function getConsejosPopulares() {
     return cps;
 }
 
+/** Al iniciar el documento se rellenan las listas desplegables de los municipios y se crea un
+ * consejo Popular
+ */
 $(document).ready(function () {
     municipio.html('<option value="0">-</option>');
     $.each(municipios, function (index, value) {
@@ -21,14 +49,15 @@ $(document).ready(function () {
     });
     $('#consejo-popular').disabled = true;
     let consejosPopulares = $('.cp-data');
-    $.each(consejosPopulares, function (index,value) {
+    $.each(consejosPopulares, function (index) {
         updateTotalVoluntario(index);
     });
 
     addconsejoPopular();
 });
 
-
+/** Al cambiar de municipio se actualizan las listas desplegables de los Consejos Populares
+ */
 municipio.on('change',function () {
     let cps = getConsejosPopulares();
     $('.consejo-popular').html('<option value="0">-</option>').disabled = false;
@@ -41,6 +70,9 @@ municipio.on('change',function () {
     municipio = $(this);
 });
 
+/** Actualiza el total de voluntarios del CP
+ * @param idCP id numerico del consejo popular a actualizar
+ */
 function updateTotalVoluntario(idCP) {
     console.log('updating ' + idCP);
     let cp = document.querySelector("#cp-form"+idCP);
@@ -62,6 +94,8 @@ function updateTotalVoluntario(idCP) {
     tv.innerHTML = "Voluntarios: "+total;
 }
 
+/** Accion del Boton de añadir consejo Popular
+ */
 function addconsejoPopular() {
     let container = $('#cp-container');
     let count = $('.cp-data').length;
@@ -100,7 +134,6 @@ function addconsejoPopular() {
         ' </div>' +
         '</div>'
     );
-    let mun = $('#municipio').val();
     let cps = getConsejosPopulares();
     $('#cp'+count).html('<option value="0">-</option>').disabled = false;
     $.each(cps, function (index, value) {
@@ -111,10 +144,146 @@ function addconsejoPopular() {
 
 }
 
+/** Acción del poton eliminar del consejo Popular
+ * @param idCP identificador numérico del consejo popular a eliminar
+ */
 function deleteConsejoPopular(idCP) {
     $("#cp-form"+ idCP ).remove();
 }
 
+/** Acción del botón de Crear Parte
+ */
+function createVistaPrevia(){
+    let json =  json_format;
+
+    json.municipios[0].nombre = municipio.val(); //Municipio
+    json.fecha = formatoFecha($('#date').val()); //Fecha
+
+    let e = 0;
+    let t = 0;
+    let nc = 0;
+    let b = 0;
+    let a = 0;
+
+    let cps = document.querySelectorAll('.cp-data');
+
+    for (let i=0 ; i<cps.length ; i++) { //Datos de los Consejos Populares
+        let cp = cps[i].querySelector(".consejo-popular").value;
+        let cpE = cps[i].querySelector(".voluntario-e").value;
+        let cpT = cps[i].querySelector(".voluntario-t").value;
+        let cpNC = cps[i].querySelector(".voluntario-nc").value;
+        let cpB = cps[i].querySelector(".beneficiado").value;
+        let cpA = cps[i].querySelector(".ausente").value;
+
+        json.municipios[0].consejosPopulares[i].nombre = cp; //Nombre Consejo popular
+
+        if (cpE) { //Estudiantes
+            e += parseInt(cpE);
+            json.municipios[0].consejosPopulares[i].estudiantes = parseInt(cpE);
+        }
+
+        if (cpT) { //Trabajadores
+            t += parseInt(cpT);
+            json.municipios[0].consejosPopulares[i].trabajadores = parseInt(cpT);
+        }
+
+        if (cpNC) { //No cujae
+            nc += parseInt(cpNC);
+            json.municipios[0].consejosPopulares[i].no_cujae = parseInt(cpNC);
+        }
+
+        if (cpB){ //Beneficiados
+            b += parseInt(cpB);
+            json.municipios[0].consejosPopulares[i].beneficiados = parseInt(cpB);
+        }
+
+        if (cpA){ //Ausentes
+            a += parseInt(cpA);
+            json.municipios[0].consejosPopulares[i].ausentes = parseInt(cpA);
+        }
+
+    }
+
+    json.municipios[0].total_ausentes = a; //total de Ausentes
+    json.municipios[0].total_voluntarios = e + t + nc; //total de voluntarios (Estudaintes+Trabajadores+NoCujae)
+    json.municipios[0].total_beneficiados = b; //total de Beneficiados
+    json.municipios[0].comentario= $("#comentario").val();
+
+    //formato para Web y Whatsapp
+    let parteHtml = parteHTML(json);
+    let parteTexto = parteTexto(json);
+
+    //Añadiendo clase para css de la vista previa y incrustando el parte en el formato HTML
+    let area = $('#vista-previa').addClass('card').html(parteHtml);
+
+    //Visualizacion del parte en formato texto para enviar a whatsapp y su botón
+    area.append('<textarea  class="form-control">'+ parteTexto +'</textarea>');
+    area.append('<a class="btn btn-info" href="whatsapp://send?text=' + encodeURIComponent(parteTexto) +'" target="_blank" ' +
+        ' action="share/whatsapp/share" >Enviar por Whatsapp</a>');
+
+    //console.log(json);
+    //console.log(parteHtml);
+    //console.log(parteTexto);
+}
+
+/** Genera el parte en formato HTML
+ * @param json formato de datos
+ * @returns {string} listo para añadir al elemento contenedor
+ */
+function parteHTML(json) {
+    let html = '<h4>'+ json.municipios[0].nombre +'</h4>'+
+        '<h5>Día: '+ json.fecha  +'</h5>';
+
+    for (let i = 0 ; i<json.municipios[0].consejosPopulares.length ; i++) {
+        html += '<div class="v-cp card">' +
+            '<h6>Consejo Popular: ' + json.municipios[0].consejosPopulares[i].nombre + '</h6>' +
+            '<span>Estudiantes: ' + json.municipios[0].consejosPopulares[i].estudiantes + '</span>' +
+            '<span>Trabajadores: '+ json.municipios[0].consejosPopulares[i].trabajadores + '</span>' +
+            '<span>No Cujae: '+ json.municipios[0].consejosPopulares[i].no_cujae + '</span>' +
+            '<span>Beneficiados: '+ json.municipios[0].consejosPopulares[i].beneficiados + '</span>' +
+            '<span>Ausentes: '+ json.municipios[0].consejosPopulares[i].ausentes + '</span>' +
+            '</div>';
+    }
+
+    html += '<span>Total Ausentes: '+ json.municipios[0].total_ausentes + '</span>' +
+        '<br>' +
+        '<h6>Total Voluntarios: '+ json.municipios[0].total_voluntarios +'</h6>'+
+        '<h6>Total Beneficiados: '+ json.municipios[0].total_beneficiados +'</h6>' +
+        '<div id="v-comentario"><p>'+ json.municipios[0].comentario +'</p></div>';
+
+    return html;
+}
+
+/** genera el parte en formato texto para ser enviado a Whatsapp
+ * @param json formato de datos
+ * @returns {string} Listo para enviar a mensaje de Whatsapp
+ */
+function parteTexto(json) {
+    let texto = '*'+ json.municipios[0].nombre + '*\n' +
+        'Día: ' + json.fecha +'\n\n';
+
+    for (let i = 0 ; i<json.municipios[0].consejosPopulares.length ; i++){
+        texto +=  'Consejo Popular: *' + json.municipios[0].consejosPopulares[i].nombre + '*\n' +
+            '  -Estudiantes: *' + json.municipios[0].consejosPopulares[i].estudiantes + '*\n' +
+            '  -Trabajadores: *' + json.municipios[0].consejosPopulares[i].trabajadores + '*\n' +
+            '  -No Cujae: *'+ json.municipios[0].consejosPopulares[i].no_cujae + '*\n' +
+            ' Beneficiados: *'+ json.municipios[0].consejosPopulares[i].beneficiados + '*\n' +
+            ' Ausentes: *'+ json.municipios[0].consejosPopulares[i].ausentes + '*\n';
+    }
+
+    texto += '\n' +
+        'Total Ausentes: *' + json.municipios[0].total_ausentes + '*\n'+
+        '*Total Voluntarios: ' + json.municipios[0].total_voluntarios + '*\n'+
+        '*Total Beneficiados: ' + json.municipios[0].total_beneficiados + '*\n\n  ' +
+        '_' + json.municipios[0].comentario + '_';
+
+    return texto;
+}
+
+/** Formato dd/mm/yyyy para el input de fecha
+ * @param date valor obtenido por el input de fecha
+ * @returns {string} fecha en formato dd/mm/yyyy
+ */
 function formatoFecha(date) {
     let dd = '';
     let mm = '';
@@ -131,90 +300,4 @@ function formatoFecha(date) {
         }
     }
     return dd+'/'+mm+'/'+yyyy;
-}
-
-function createPreview(){
-    let date = formatoFecha($('#date').val());
-    let area = $('#vista-previa').addClass('card');
-    area.html(
-        '<h4>'+ municipio.val() +'</h4>'+
-        '<h5>Día: '+ date +'</h5>'
-    );
-
-    let text = '*'+ municipio.val() + '*\n' +
-        'Día: ' + date +'\n\n';
-
-    let e = 0;
-    let t = 0;
-    let nc = 0;
-    let b = 0;
-    let a = 0;
-
-    let cps = document.querySelectorAll('.cp-data');
-    console.log(cps);
-    for (let i=0 ; i<cps.length ; i++) {
-        let cp = cps[i].querySelector(".consejo-popular").value;
-        let cpE = cps[i].querySelector(".voluntario-e").value;
-        let cpT = cps[i].querySelector(".voluntario-t").value;
-        let cpNC = cps[i].querySelector(".voluntario-nc").value;
-        let cpB = cps[i].querySelector(".beneficiado").value;
-        let cpA = cps[i].querySelector(".ausente").value;
-        text += 'Consejo Popular: *' + cp + '*\n';
-
-        let toAppend = '<div class="v-cp card">' +
-            '<h6>Consejo Popular: ' + cp + '</h6>';
-
-        if (cpE) {
-            text += '  -Estudiantes: *' + cpE + '*\n';
-            e += parseInt(cpE);
-            toAppend += '<span>Estudiantes: ' + cpE + '</span>';
-        }
-
-        if (cpT) {
-            text += '  -Trabajadores: *' + cpT + '*\n';
-            t += parseInt(cpT);
-            toAppend += '<span>Trabajadores: '+ cpT + '</span>';
-        }
-
-        if (cpNC) {
-            text += '  -No Cujae: *'+ cpNC + '*\n';
-            nc += parseInt(cpNC);
-            toAppend += '<span>No Cujae: '+ cpNC + '</span>';
-        }
-
-        if (cpB){
-            text += ' Beneficiados: *'+ cpB + '*\n';
-            b += parseInt(cpB);
-            toAppend += '<span>Beneficiados: '+ cpB + '</span>';
-        }
-
-        if (cpA){
-            text += ' Ausentes: *'+ cpA + '*\n';
-            a += parseInt(cpA);
-            toAppend += '<span>Ausentes: '+ cpA + '</span>';
-        }
-
-        text += '\n';
-        toAppend += '</div>';
-
-        area.append(toAppend);
-    }
-
-    let comentario = $("#comentario").val();
-    let vt = e + t + nc;
-
-    text += 'Total Ausentes: *' + a + '*\n'+
-        '*Total Voluntarios: ' + vt + '*\n'+
-        '*Total Beneficiados: ' + a + '*\n\n  ' +
-        '_' + comentario + '_';
-
-    area.append('<span>Total Ausentes: '+ a + '</span>' +
-        '<br>' +
-        '<h6>Total Voluntarios: '+ vt +'</h6>'+
-        '<h6>Total Beneficiados: '+ b +'</h6>');
-    area.append('<div id="v-comentario"><p>'+ comentario +'</p></div>');
-
-    area.append('<textarea  class="form-control">'+ text +'</textarea>');
-    area.append('<a class="btn btn-info" href="whatsapp://send?text=' + encodeURIComponent(text) +'" target="_blank" ' +
-        'action="share/whatsapp/share" >Enviar por Whatsapp</a>');
 }
