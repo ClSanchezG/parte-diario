@@ -210,15 +210,16 @@ function createVistaPrevia(){
     json.municipios[0].comentario= $("#comentario").val();
 
     //formato para Web y Whatsapp
-    let parteHtml = parteHTML(json);
-    let parteTexto = parteTexto(json);
+    let html = parteHTML(json);
+    let texto = parteTexto(json);
 
     //Añadiendo clase para css de la vista previa y incrustando el parte en el formato HTML
-    let area = $('#vista-previa').addClass('card').html(parteHtml);
+    let area = $('#vista-previa').addClass('card');
+    area.html(html);
 
     //Visualizacion del parte en formato texto para enviar a whatsapp y su botón
-    area.append('<textarea  class="form-control">'+ parteTexto +'</textarea>');
-    area.append('<a class="btn btn-info" href="whatsapp://send?text=' + encodeURIComponent(parteTexto) +'" target="_blank" ' +
+    area.append('<textarea  class="form-control">'+ texto +'</textarea>');
+    area.append('<a class="btn btn-info" href="whatsapp://send?text=' + encodeURIComponent(texto) +'" target="_blank" ' +
         ' action="share/whatsapp/share" >Enviar por Whatsapp</a>');
 
     //console.log(json);
