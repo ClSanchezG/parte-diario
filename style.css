@@ -56,11 +56,10 @@ textarea{
     margin: 10px;
 }
 
-input.na {
-    display: inline-block;
-    width: 80%;
+.na-form{
+    padding: 0 10px;
 }
 
-.na-form>button{
-    width: 20%;
+.na-form>span{
+    padding: 0;
 }

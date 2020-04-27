@@ -145,11 +145,11 @@ function addNuevoActivo() {
     if (count === 0){
         container.append('<h5 id="na-label">Nuevos Activos:</h5>');
     }
-    container.append('<span class="na-form" id="na-form-'+ count +'">' +
-        '<input class="form-control na" type="text" id="na-'+ count +'" min="0" placeholder="Datos o comentario">' +
-        ' <button class="btn btn-danger btn-sm" onclick="deleteNuevoActivo('+ count +')">' +
+    container.append('<div class="na-form row" id="na-form-'+ count +'">' +
+        '<span class="col-11"><input class="form-control na col-11" type="text" id="na-'+ count +'" min="0" placeholder="Datos o comentario"></span>' +
+        ' <span class="col-1"><button class="btn btn-danger btn-sm" onclick="deleteNuevoActivo('+ count +')"></span>' +
         '<i class="fa fa-trash"></i></button>' +
-        '</span>');
+        '</div>');
 }
 
 /** Acción del boton de eliminar Nuevo Activo
