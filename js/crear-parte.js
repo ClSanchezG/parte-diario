@@ -218,10 +218,10 @@ function parteTexto(json) {
 
     texto += '\n' +
         '*Totales* _'+ json.fecha +'_\n' +
-        '  • *Voluntarios: ' + json.municipios[0].total_voluntarios + '*\n'+
-        '  • Ausentes: *' + json.municipios[0].total_ausentes + '*\n'+
-        '  • *Casas: ' + json.municipios[0].total_casas + '*\n'+
-        '  • *Beneficiados: ' + json.municipios[0].total_beneficiados + '*\n';
+        '  🙋‍♂ *Voluntarios: ' + json.municipios[0].total_voluntarios + '*\n'+
+        '  😓 Ausentes: *' + json.municipios[0].total_ausentes + '*\n'+
+        '  🏠 *Casas: ' + json.municipios[0].total_casas + '*\n'+
+        '  👴 *Beneficiados: ' + json.municipios[0].total_beneficiados + '*\n';
 
     let cant_na = json.municipios[0].nuevos_activos.length;
     if (cant_na) {
