@@ -202,17 +202,18 @@ function parteTexto(json) {
         let v_cp = json.municipios[0].consejosPopulares[i].estudiantes +
             json.municipios[0].consejosPopulares[i].trabajadores +
             json.municipios[0].consejosPopulares[i].no_cujae;
-        texto +=  'Consejo Popular: *' + json.municipios[0].consejosPopulares[i].nombre + '*\n' +
-            'Voluntarios Hoy: *' + v_cp + '*\n' +
-            '  • Estudiantes: *' + json.municipios[0].consejosPopulares[i].estudiantes + '*\n' +
-            '  • Trabajadores: *' + json.municipios[0].consejosPopulares[i].trabajadores + '*\n' +
-            '  • No Cujae: *'+ json.municipios[0].consejosPopulares[i].no_cujae + '*\n' +
-            ' _Ausentes: *'+ json.municipios[0].consejosPopulares[i].ausentes + '*_\n' +
-            ' Casas: *'+ json.municipios[0].consejosPopulares[i].casas + '*\n' +
-            ' Beneficiados: *'+ json.municipios[0].consejosPopulares[i].beneficiados + '*\n';
+        texto +=  '*Consejo Popular: ' + json.municipios[0].consejosPopulares[i].nombre + '*\n' +
+            '  Voluntarios Hoy: ' + v_cp + '\n' +
+            '    • Estudiantes: ' + json.municipios[0].consejosPopulares[i].estudiantes + '\n' +
+            '    • Trabajadores: ' + json.municipios[0].consejosPopulares[i].trabajadores + '\n' +
+            '    • No Cujae: '+ json.municipios[0].consejosPopulares[i].no_cujae + '\n' +
+            '  _Ausentes: '+ json.municipios[0].consejosPopulares[i].ausentes + '_\n' +
+            '  Casas: '+ json.municipios[0].consejosPopulares[i].casas + '\n' +
+            '  Beneficiados: '+ json.municipios[0].consejosPopulares[i].beneficiados + '\n';
         if (json.municipios[0].consejosPopulares[i].comentario){
             texto += '_' + json.municipios[0].consejosPopulares[i].comentario + '_\n';
         }
+        texto += '\n';
     }
 
     texto += '\n' +

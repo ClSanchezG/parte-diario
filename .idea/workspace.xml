@@ -13,8 +13,8 @@
       <list>
         <option value="HTML File" />
         <option value="Sass File" />
-        <option value="JavaScript File" />
         <option value="tsconfig.json" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -31,6 +31,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Working\!Proyectos\parte\parte" />
       <recent name="D:\Working\!Proyectos\Nuevo\js" />
       <recent name="D:\Working\!Proyectos\Nuevo\css" />
     </key>
@@ -61,7 +62,10 @@
       <workItem from="1587745354078" duration="21723000" />
       <workItem from="1587783164832" duration="7444000" />
       <workItem from="1587831311754" duration="673000" />
-      <workItem from="1587839184295" duration="6536000" />
+      <workItem from="1587839184295" duration="11577000" />
+      <workItem from="1587954070443" duration="19530000" />
+      <workItem from="1588006059116" duration="1103000" />
+      <workItem from="1588022474225" duration="222000" />
     </task>
     <servers />
   </component>
