@@ -24,6 +24,8 @@ button {
     margin-top: 5px;
     margin-bottom: 5px;
 }
+button>.fa {
+}
 
 #vista-previa{
     display: inline-block;
@@ -32,13 +34,18 @@ button {
 }
 
 .v-cp{
-    padding: 5px;
+    padding: 10px;
 }
 
-#v-comentario {
+.v-comentario {
     padding: 0 10px;
     border-radius: 5px;
     background-color: whitesmoke;
+    margin-bottom: 1rem;
+}
+
+.v-comentario>p{
+    margin: 0;
 }
 
 textarea{
@@ -47,4 +54,13 @@ textarea{
 
 .btn-info{
     margin: 10px;
+}
+
+input.na {
+    display: inline-block;
+    width: 90%;
+}
+
+.na-form>button{
+    width: 10%;
 }
