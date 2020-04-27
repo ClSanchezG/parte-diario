@@ -1,5 +1,6 @@
 let municipio = $('#municipio');
 
+
 /** Obtiene los consejos Populares correspondientes con sus municipios
  * @returns {[]} arreglo de consejos populares (municipio, cp)
  */
@@ -21,7 +22,7 @@ function getConsejosPopulares() {
  * consejo Popular
  */
 $(document).ready(function () {
-    municipio.html('<option value="0">-</option>');
+    municipio.html('<option value="NO SELECCIONADO">-</option>');
     $.each(municipios, function (index, value) {
         municipio.append('<option value="'+ value.nombre +'">'+ value.nombre +'</ooption>');
     });
@@ -30,7 +31,6 @@ $(document).ready(function () {
     $.each(consejosPopulares, function (index) {
         updateTotalVoluntario(index);
     });
-
     addconsejoPopular();
 });
 
@@ -38,7 +38,7 @@ $(document).ready(function () {
  */
 municipio.on('change',function () {
     let cps = getConsejosPopulares();
-    $('.consejo-popular').html('<option value="0">-</option>').disabled = false;
+    $('.consejo-popular').html('<option value="NO SELECCIONADO">-</option>').disabled = false;
     let mun = $(this).val();
     $.each(cps, function (index, value) {
         if (value.municipio === mun){

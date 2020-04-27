@@ -17,7 +17,13 @@ function formatoFecha(date) {
             dd += date[i];
         }
     }
-    return dd+'/'+mm+'/'+yyyy;
+
+    let newFecha = dd+'/'+mm+'/'+yyyy;
+    if (newFecha === '//'){
+        let date = new Date();
+        newFecha = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+    }
+    return newFecha;
 }
 
 /** Acción del botón de Crear Parte
@@ -30,9 +36,9 @@ function crearParte(){
     parte.municipios.push(new ParteMunicipio());
     parte.municipios[0].nombre = municipio.val(); //Municipio
 
-    parte.municipios[0].activos = parseInt($('#m-activos').val());
-    parte.municipios[0].bajas = parseInt($('#m-bajas').val());
-    parte.municipios[0].coordinacion = parseInt($('#m-coordinacion').val());
+    parte.municipios[0].activos = parseInt($('#m-activos').val()) || 0;
+    parte.municipios[0].bajas = parseInt($('#m-bajas').val()) || 0;
+    parte.municipios[0].coordinacion = parseInt($('#m-coordinacion').val()) || 0;
 
     acumulado = {
         e : 0, // acumulando estudiates
@@ -60,25 +66,23 @@ function crearParte(){
 
         nuevo_cp.nombre = cp; //Nombre Consejo popular
 
-        if (cpE) {
-            acumulado.e += parseInt(cpE);
-            nuevo_cp.estudiantes = parseInt(cpE);
-        }
+        acumulado.e += parseInt(cpE)  || 0;
+        nuevo_cp.estudiantes = parseInt(cpE) || 0;
 
-        acumulado.t += parseInt(cpT);
-        nuevo_cp.trabajadores = parseInt(cpT);
+        acumulado.t += parseInt(cpT) || 0;
+        nuevo_cp.trabajadores = parseInt(cpT) || 0;
 
-        acumulado.nc += parseInt(cpNC);
-        nuevo_cp.no_cujae = parseInt(cpNC);
+        acumulado.nc += parseInt(cpNC) || 0
+        nuevo_cp.no_cujae = parseInt(cpNC) || 0;
 
-        acumulado.c += parseInt(cpC);
-        nuevo_cp.casas = parseInt(cpC);
+        acumulado.c += parseInt(cpC) || 0;
+        nuevo_cp.casas = parseInt(cpC) || 0;
 
-        acumulado.b += parseInt(cpB);
-        nuevo_cp.beneficiados = parseInt(cpB);
+        acumulado.b += parseInt(cpB) || 0;
+        nuevo_cp.beneficiados = parseInt(cpB) || 0;
 
-        acumulado.a += parseInt(cpA);
-        nuevo_cp.ausentes = parseInt(cpA);
+        acumulado.a += parseInt(cpA) || 0;
+        nuevo_cp.ausentes = parseInt(cpA) || 0;
 
 
         parte.municipios[0].consejosPopulares.push(nuevo_cp);
@@ -153,7 +157,7 @@ function parteHTML(json) {
     }
 
     html += '<h5 class="font-weight-bold"> <u>Totales <span class="font-italic font-weight-light">'+ json.fecha +'</span></u> </h5>' +
-        '<h6><i class="fa fa-chevron-right"></i>  Voluntarios Hoy: '+ json.municipios[0].total_voluntarios +'</h6>'+
+        '<h6><i class="fa fa-chevron-right"></i>  Voluntarios: '+ json.municipios[0].total_voluntarios +'</h6>'+
         '<h6><i class="fa fa-chevron-right"></i>  Ausentes: '+ json.municipios[0].total_ausentes + '</h6>' +
         '<h6><i class="fa fa-chevron-right"></i>  Casas: '+ json.municipios[0].total_casas +'</h6>' +
         '<h6><i class="fa fa-chevron-right"></i>  Beneficiados: '+ json.municipios[0].total_beneficiados +'</h6>';
