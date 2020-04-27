@@ -58,9 +58,9 @@ textarea{
 
 input.na {
     display: inline-block;
-    width: 90%;
+    width: 80%;
 }
 
 .na-form>button{
-    width: 10%;
+    width: 20%;
 }
