@@ -130,14 +130,14 @@ function crearParte(){
  * @returns {string} listo para añadir al elemento contenedor
  */
 function parteHTML(json) {
-    let v = json.municipios[0].activos + json.municipios[0].bajas + json.municipios[0].coordinacion;
+    let v = json.municipios[0].activos + json.municipios[0].coordinacion;
 
     let html = '<h4 class="font-weight-bold">'+ json.municipios[0].nombre +'</h4>'+
         '<h5>Día: '+ json.fecha  +'</h5>' +
         '<h5>Voluntarios: '+ v  +'</h5>' +
         '<h6><i class="fa fa-chevron-right"></i>  Activos: '+ json.municipios[0].activos  +'</h6>' +
-        '<h6><i class="fa fa-chevron-right"></i>  Bajas: '+ json.municipios[0].bajas  +'</h6>' +
-        '<h6><i class="fa fa-chevron-right"></i>  Coordinación: '+ json.municipios[0].coordinacion  +'</h6>';
+        '<h6><i class="fa fa-chevron-right"></i>  Coordinación: '+ json.municipios[0].coordinacion  +'</h6>' +
+        '<h6>Bajas: '+ json.municipios[0].bajas  +'</h6>' ;
 
     for (let i = 0 ; i<json.municipios[0].consejosPopulares.length ; i++) {
         let v_cp = json.municipios[0].consejosPopulares[i].estudiantes +
@@ -190,13 +190,13 @@ function parteHTML(json) {
  * @returns {string} Listo para enviar a mensaje de Whatsapp
  */
 function parteTexto(json) {
-    let v = json.municipios[0].activos + json.municipios[0].bajas + json.municipios[0].coordinacion;
+    let v = json.municipios[0].activos + json.municipios[0].coordinacion;
     let texto = '*'+ json.municipios[0].nombre + '*\n' +
         'Día: ' + json.fecha +'\n' +
         'Voluntarios: *' + v + '*\n' +
         ' • Activos: ' + json.municipios[0].activos + '\n' +
-        ' • Bajas: ' + json.municipios[0].bajas + '\n' +
-        ' • Coordinación: ' + json.municipios[0].coordinacion + '\n\n';
+        ' • Coordinación: ' + json.municipios[0].coordinacion + '\n' +
+        'Bajas: ' + json.municipios[0].bajas + '\n\n';
 
     for (let i = 0 ; i<json.municipios[0].consejosPopulares.length ; i++){
         let v_cp = json.municipios[0].consejosPopulares[i].estudiantes +
