@@ -192,17 +192,18 @@ function parteHTML(json) {
 function parteTexto(json) {
     let v = json.municipios[0].activos + json.municipios[0].coordinacion;
     let texto = '*'+ json.municipios[0].nombre + '*\n' +
-        'Día: ' + json.fecha +'\n' +
+        '🏘Consejos Populares Activos: '+ json.municipios[0].consejosPopulares.length + '\n' +
+        '📅 Día: ' + json.fecha +'\n\n' +
         'Voluntarios: *' + v + '*\n' +
-        ' • Activos: ' + json.municipios[0].activos + '\n' +
-        ' • Coordinación: ' + json.municipios[0].coordinacion + '\n' +
-        'Bajas: ' + json.municipios[0].bajas + '\n\n';
+        '  💚 Activos: ' + json.municipios[0].activos + '\n' +
+        '  ⬜ Coordinación: ' + json.municipios[0].coordinacion + '\n' +
+        '🔸 Bajas: ' + json.municipios[0].bajas + '\n\n';
 
     for (let i = 0 ; i<json.municipios[0].consejosPopulares.length ; i++){
         let v_cp = json.municipios[0].consejosPopulares[i].estudiantes +
             json.municipios[0].consejosPopulares[i].trabajadores +
             json.municipios[0].consejosPopulares[i].no_cujae;
-        texto +=  '*Consejo Popular: ' + json.municipios[0].consejosPopulares[i].nombre + '*\n' +
+        texto +=  '🏘*Consejo Popular: ' + json.municipios[0].consejosPopulares[i].nombre + '*\n' +
             '  Voluntarios Hoy: ' + v_cp + '\n' +
             '    • Estudiantes: ' + json.municipios[0].consejosPopulares[i].estudiantes + '\n' +
             '    • Trabajadores: ' + json.municipios[0].consejosPopulares[i].trabajadores + '\n' +
