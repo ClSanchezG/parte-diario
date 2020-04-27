@@ -60,8 +60,10 @@ function crearParte(){
 
         nuevo_cp.nombre = cp; //Nombre Consejo popular
 
-        acumulado.e += parseInt(cpE);
-        nuevo_cp.estudiantes = parseInt(cpE);
+        if (cpE) {
+            acumulado.e += parseInt(cpE);
+            nuevo_cp.estudiantes = parseInt(cpE);
+        }
 
         acumulado.t += parseInt(cpT);
         nuevo_cp.trabajadores = parseInt(cpT);
@@ -91,6 +93,12 @@ function crearParte(){
     //console.log(nuevos_activos);
     for (let i = 0 ; i<nuevos_activos.length ; i++ ){
         parte.municipios[0].nuevos_activos.push(nuevos_activos[i].value);
+    }
+
+    let reportes_baja = $('.rb');
+
+    for (let i = 0 ; i<reportes_baja.length ; i++ ){
+        parte.municipios[0].reportes_baja.push(reportes_baja[i].value);
     }
 
     parte.municipios[0].comentario= $("#comentario").val();
@@ -150,12 +158,23 @@ function parteHTML(json) {
         '<h6><i class="fa fa-chevron-right"></i>  Casas: '+ json.municipios[0].total_casas +'</h6>' +
         '<h6><i class="fa fa-chevron-right"></i>  Beneficiados: '+ json.municipios[0].total_beneficiados +'</h6>';
 
-    html += '<div><h6 class="font-weight-bold">Nuevos Activos: ' + json.municipios[0].nuevos_activos.length + '</h6>';
-
-    for (let i=0 ; i<json.municipios[0].nuevos_activos.length ; i++){
-        html += '<h6>  <i class="fa fa-chevron-right"></i> '+ json.municipios[0].nuevos_activos[i] +'</h6>'
+    let cant_na = json.municipios[0].nuevos_activos.length;
+    if (cant_na){
+        html += '<div><h6 class="font-weight-bold">Nuevos Activos: ' + cant_na + '</h6>';
+        for (let i=0 ; i<cant_na ; i++){
+            html += '<h6>  <i class="fa fa-chevron-right"></i> '+ json.municipios[0].nuevos_activos[i] +'</h6>'
+        }
+        html += '</div>';
     }
-    html += '</div>';
+
+    let cant_rb = json.municipios[0].reportes_baja.length;
+    if (cant_rb){
+        html += '<div><h6 class="font-weight-bold">Reportes de Bajas: ' + cant_rb + '</h6>';
+        for (let i=0 ; i<cant_rb ; i++){
+            html += '<h6>  <i class="fa fa-chevron-right"></i> '+ json.municipios[0].reportes_baja[i] +'</h6>'
+        }
+        html += '</div>';
+    }
 
     html += '<div class="v-comentario"><p>'+ json.municipios[0].comentario +'</p></div>';
 
@@ -198,11 +217,25 @@ function parteTexto(json) {
         '  • Ausentes: *' + json.municipios[0].total_ausentes + '*\n'+
         '  • *Casas: ' + json.municipios[0].total_casas + '*\n'+
         '  • *Beneficiados: ' + json.municipios[0].total_beneficiados + '*\n';
-    texto += '*Nuevos Activos:* '+ json.municipios[0].nuevos_activos.length +'\n';
-    for (let i=0 ; i<json.municipios[0].nuevos_activos.length ; i++){
-        texto += '  • '+ json.municipios[0].nuevos_activos[i] +'\n';
+
+    let cant_na = json.municipios[0].nuevos_activos.length;
+    if (cant_na) {
+        texto += '*Nuevos Activos:* ' + cant_na + '\n';
+        for (let i = 0; i < cant_na; i++) {
+            texto += '  • ' + json.municipios[0].nuevos_activos[i] + '\n';
+        }
+        texto += '\n';
     }
-    texto +='\n';
+
+    let cant_rb = json.municipios[0].reportes_baja.length;
+    if (cant_rb) {
+        texto += '*Reportes de Baja:* ' + cant_rb + '\n';
+        for (let i = 0; i < cant_rb; i++) {
+            texto += '  • ' + json.municipios[0].reportes_baja[i] + '\n';
+        }
+        texto += '\n';
+    }
+
     if (json.municipios[0].comentario){
         texto += '_' + json.municipios[0].comentario + '_';
     }

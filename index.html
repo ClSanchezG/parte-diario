@@ -53,8 +53,12 @@
 
             <div id="na-container"> <!--Nuevos Activos-->
             </div>
-
             <button class="btn btn-success" onclick="addNuevoActivo()"><i class="fa fa-plus"></i> Nuevo Activo</button>
+
+            <div id="rb-container"> <!--Reporte de baja-->
+            </div>
+            <button class="btn btn-warning" onclick="addReporteBaja()"><i class="fa fa-minus"></i> Reportar Baja</button>
+
             <div class="form-group">
                 <label for="comentario">Comentario</label>
                 <textarea class="form-control" id="comentario" placeholder="Comentario o nota sobre el parte"></textarea>
@@ -63,7 +67,7 @@
 
         <div class="col-xl-6 col-sm-12 pt-sm-4 mt-sm-3" id="v-container">
             <div class="text-center">
-                <button class="btn btn-success" onclick="crearParte()"><i class="fa fa-file-text"></i> CREAR PARTE</button>
+                <button class="btn btn-info" onclick="crearParte()"><i class="fa fa-file-text"></i> CREAR PARTE</button>
             </div>
             <div class="col-12" id="vista-previa">
             </div>

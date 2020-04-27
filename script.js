@@ -163,3 +163,30 @@ function deleteNuevoActivo(idNA){
     }
     $("#na-form-"+ idNA ).remove();
 }
+
+/** Acción de añadir nuevos activos
+ */
+function addReporteBaja() {
+    let container = $('#rb-container').addClass('card');
+    let count = $('.rb').length;
+    if (count === 0){
+        container.append('<h5 id="rb-label">Reportes de Baja:</h5>');
+    }
+    container.append('<div class="rb-form row" id="rb-form-'+ count +'">' +
+        '<span class="col-11"><input class="form-control rb col-11" type="text" id="rb-'+ count +'" min="0" placeholder="Datos o comentario"></span>' +
+        ' <span class="col-1"><button class="btn btn-danger btn-sm" onclick="deleteReporteBaja('+ count +')"></span>' +
+        '<i class="fa fa-trash"></i></button>' +
+        '</div>');
+}
+
+/** Acción del boton de eliminar Nuevo Activo
+ * @param idNA
+ */
+function deleteReporteBaja(idNA){
+    let count = $('.rb').length;
+    if (count === 1){
+        $("#rb-label").remove();
+        $('#rb-container').removeClass('card');
+    }
+    ("#rb-form-"+ idNA ).remove();
+}

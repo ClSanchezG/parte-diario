@@ -56,10 +56,11 @@ textarea{
     margin: 10px;
 }
 
+.rb-form,
 .na-form{
     padding: 0 10px;
 }
-
+.rb-form>span,
 .na-form>span{
     padding: 0;
 }
