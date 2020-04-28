@@ -59,7 +59,16 @@ textarea{
 .na-form{
     padding: 0 10px;
 }
+
 .rb-form>span,
 .na-form>span{
     padding: 0;
+}
+
+
+#alerta {
+    position: sticky;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
 }

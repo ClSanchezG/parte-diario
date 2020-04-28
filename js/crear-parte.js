@@ -106,23 +106,37 @@ function crearParte(){
     }
 
     parte.municipios[0].comentario= $("#comentario").val();
-
-    //formato para Web y Whatsapp
-    let html = parteHTML(parte);
-    let texto = parteTexto(parte);
-
-    //Añadiendo clase para css de la vista previa y incrustando el parte en el formato HTML
     let area = $('#vista-previa').addClass('card');
-    area.html(html);
+    //Comprobar si el numero de activos es mayor que el total de voluntarios
+    if(parte.municipios[0].activos > parte.municipios[0].total_voluntarios){
+        //formato para Web y Whatsapp
+        let html = parteHTML(parte);
+        let texto = parteTexto(parte);
 
-    //Visualizacion del parte en formato texto para enviar a whatsapp y su botón
-    area.append('<textarea  class="form-control">'+ texto +'</textarea>');
-    area.append('<a class="btn btn-info" href="whatsapp://send?text=' + encodeURIComponent(texto) +'" target="_blank" ' +
-        ' action="share/whatsapp/share" >Enviar por Whatsapp</a>');
+        //Añadiendo clase para css de la vista previa y incrustando el parte en el formato HTML
 
-    //console.log(json);
-    //console.log(parteHtml);
-    //console.log(parteTexto);
+        area.html(html);
+
+        //Visualizacion del parte en formato texto para enviar a whatsapp y su botón
+        area.append('<textarea  class="form-control">'+ texto +'</textarea>');
+        area.append('<a class="btn btn-info" href="whatsapp://send?text=' + encodeURIComponent(texto) +'" target="_blank" ' +
+            ' action="share/whatsapp/share" >Enviar por Whatsapp</a>');
+
+        //console.log(json);
+        //console.log(parteHtml);
+        //console.log(parteTexto);
+    }
+    else {
+        console.log("alertaaaa\n");
+        $('body').append('<div class="alert alert-warning alert-dismissible fade-in fade show" role="alert" id="alerta">\n' +
+            '    <strong>¡Total de Voluntarios del '+ parte.fecha +' excede los Voluntarios activos!</strong>\n' +
+            '    <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="close-alerta">\n' +
+            '        <span aria-hidden="true">&times;</span>\n' +
+            '    </button>\n' +
+            '</div>')
+        area.html('').removeClass('card');
+    }
+
 }
 
 /** Genera el parte en formato HTML
@@ -193,10 +207,10 @@ function parteTexto(json) {
     let v = json.municipios[0].activos + json.municipios[0].coordinacion;
     let texto = '*'+ json.municipios[0].nombre + '*\n' +
         '🏘Consejos Populares Activos: '+ json.municipios[0].consejosPopulares.length + '\n' +
-        '📅 Día: ' + json.fecha +'\n\n' +
+        ' Día: ' + json.fecha +'\n\n' +
         'Voluntarios: *' + v + '*\n' +
         '  💚 Activos: ' + json.municipios[0].activos + '\n' +
-        '  ⬜ Coordinación: ' + json.municipios[0].coordinacion + '\n' +
+        '  ◽ Coordinación: ' + json.municipios[0].coordinacion + '\n' +
         '🔸 Bajas: ' + json.municipios[0].bajas + '\n\n';
 
     for (let i = 0 ; i<json.municipios[0].consejosPopulares.length ; i++){

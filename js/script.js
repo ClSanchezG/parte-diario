@@ -32,6 +32,11 @@ $(document).ready(function () {
         updateTotalVoluntario(index);
     });
     addconsejoPopular();
+    $('#close-alerta').on('click;', function (){
+        this.preventDefault();
+        
+    });
+
 });
 
 /** Al cambiar de municipio se actualizan las listas desplegables de los Consejos Populares
