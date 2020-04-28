@@ -108,7 +108,7 @@ function crearParte(){
     parte.municipios[0].comentario= $("#comentario").val();
     let area = $('#vista-previa').addClass('card');
     //Comprobar si el numero de activos es mayor que el total de voluntarios
-    if(parte.municipios[0].activos > parte.municipios[0].total_voluntarios){
+    if(parte.municipios[0].activos >= parte.municipios[0].total_voluntarios){
         //formato para Web y Whatsapp
         let html = parteHTML(parte);
         let texto = parteTexto(parte);
