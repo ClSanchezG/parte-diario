@@ -71,8 +71,9 @@ const municipios =[
       "Mañana - Habana Nueva",
       "Minas - Barreras",
       "Peñalver - Bacuranao",
+      "Santa Fé",
       "Villa I",
-      "Villa II"
+      "Villa II",
     ]
   },
   {

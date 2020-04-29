@@ -206,7 +206,7 @@ function parteHTML(json) {
 function parteTexto(json) {
     let v = json.municipios[0].activos + json.municipios[0].coordinacion;
     let texto = '*'+ json.municipios[0].nombre + '*\n' +
-        '🏘Consejos Populares Activos: '+ json.municipios[0].consejosPopulares.length + '\n' +
+        '🏘 Consejos Populares Activos: '+ json.municipios[0].consejosPopulares.length + '\n' +
         ' Día: ' + json.fecha +'\n\n' +
         'Voluntarios: *' + v + '*\n' +
         '  💚 Activos: ' + json.municipios[0].activos + '\n' +
@@ -217,7 +217,7 @@ function parteTexto(json) {
         let v_cp = json.municipios[0].consejosPopulares[i].estudiantes +
             json.municipios[0].consejosPopulares[i].trabajadores +
             json.municipios[0].consejosPopulares[i].no_cujae;
-        texto +=  '🏘*Consejo Popular: ' + json.municipios[0].consejosPopulares[i].nombre + '*\n' +
+        texto +=  '🏘 *Consejo Popular: ' + json.municipios[0].consejosPopulares[i].nombre + '*\n' +
             '  Voluntarios Hoy: ' + v_cp + '\n' +
             '    • Estudiantes: ' + json.municipios[0].consejosPopulares[i].estudiantes + '\n' +
             '    • Trabajadores: ' + json.municipios[0].consejosPopulares[i].trabajadores + '\n' +
