@@ -70,8 +70,7 @@ const municipios =[
       "La Jata - Naranjo",
       "Mañana - Habana Nueva",
       "Minas - Barreras",
-      "Peñalver - Bacuranao",
-      "Santa Fé",
+      "Santa Fé - Peñalver - Bacuranao",
       "Villa I",
       "Villa II",
     ]
