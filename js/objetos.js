@@ -26,3 +26,15 @@ function ParteConsejoPopular() { //Estructura de Consejo Popular
     this.casas = 0;
     this.comentario = '';
 }
+
+function ParteDonaciones() {
+    this.fecha = '';
+    this.municipios = [];
+}
+
+function ParteDonacionesMunicipio() {
+    this.nombre = '';
+    this.cujae = 0;
+    this.reserva = 0;
+    this.incidencias = '';
+}
