@@ -31,7 +31,7 @@ function crearParte(){
 function parteTexto(json) {
     let texto = '*'+ json.municipios[0].nombre + '*\n' +
         'Día: ' + json.fecha +'\n' +
-        'Donantes Cujae: *' + json.municipios[0].cujae + '*\n' +
+        '❣ Donantes Cujae: *' + json.municipios[0].cujae + '*\n' +
         '🔸 Reserva: *' + json.municipios[0].reserva + '*\n' +
         'Incidencias: \n' + json.municipios[0].incidencias + '\n';
 
