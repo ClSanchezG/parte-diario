@@ -95,13 +95,12 @@ function crearParte(){
             ' action="share/whatsapp/share" >Enviar por Whatsapp</a>');
 
         window.localStorage.setItem('parte', JSON.stringify(parte));
-        console.log(window.localStorage.getItem('parte'));
         //console.log(parte);
         //console.log(parteHtml);
         //console.log(parteTexto);
     }
     else {
-        console.log("alertaaaa\n");
+       // console.log("alertaaaa\n");
         $('body').append('<div class="alert alert-warning alert-dismissible fade-in fade show" role="alert" id="alerta">\n' +
             '    <strong>¡Total de Voluntarios del '+ parte.fecha +' excede los Voluntarios activos!</strong>\n' +
             '    <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="close-alerta">\n' +

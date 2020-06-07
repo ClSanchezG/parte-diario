@@ -50,7 +50,7 @@ $(document).ready(function () {
 function setPrevio(parte) {
 
     let municipio = parte.municipios[0];
-    console.log(parte.municipios[0].nombre);
+   // console.log(parte.municipios[0].nombre);
     document.getElementById('municipio').value = municipio.nombre;
     document.getElementById('m-activos').value = municipio.activos;
     document.getElementById('m-coordinacion').value = municipio.coordinacion;
@@ -80,7 +80,7 @@ municipio.on('change',function () {
  * @param idCP id numerico del consejo popular a actualizar
  */
 function updateTotalVoluntario(idCP) {
-    console.log('updating ' + idCP);
+    //console.log('updating ' + idCP);
     let cp = document.querySelector("#cp-form"+idCP);
     let e = cp.querySelector(".voluntario-e");
     let t = cp.querySelector(".voluntario-t");
