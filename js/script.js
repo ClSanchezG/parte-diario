@@ -31,14 +31,37 @@ $(document).ready(function () {
     $.each(consejosPopulares, function (index) {
         updateTotalVoluntario(index);
     });
-    addconsejoPopular();
+
+    let parte = window.localStorage.getItem('parte');
+    if(parte){
+
+        parte = JSON.parse(parte);
+        setPrevio(parte);
+    }
+    else{
+        addconsejoPopular();
+    }
     $('#close-alerta').on('click;', function (){
         this.preventDefault();
-        
     });
 
 });
 
+function setPrevio(parte) {
+
+    let municipio = parte.municipios[0];
+    console.log(parte.municipios[0].nombre);
+    document.getElementById('municipio').value = municipio.nombre;
+    document.getElementById('m-activos').value = municipio.activos;
+    document.getElementById('m-coordinacion').value = municipio.coordinacion;
+    document.getElementById('m-bajas').value = municipio.bajas;
+
+    let consejosPopulares = municipio.consejosPopulares;
+    for (let i=0; i<consejosPopulares.length; i++) {
+        addconsejoPopular(consejosPopulares[i]);
+    }
+
+}
 /** Al cambiar de municipio se actualizan las listas desplegables de los Consejos Populares
  */
 municipio.on('change',function () {
@@ -79,7 +102,10 @@ function updateTotalVoluntario(idCP) {
 
 /** Accion del Boton de añadir consejo Popular
  */
-function addconsejoPopular() {
+function addconsejoPopular(consejoPopular = null) {
+    if (consejoPopular === null) {
+        consejoPopular = new ParteConsejoPopular();
+    }
     let container = $('#cp-container');
     let count = $('.cp-data').length;
     container.append('<div class="cp-data card" id="cp-form'+ count +'">'+
@@ -92,32 +118,39 @@ function addconsejoPopular() {
         ' <h5 class="total-voluntario">Voluntarios: 0</h5>' +
         ' <div class="form-group">' +
         ' <label for="estudiante-'+ count +'">Estudiantes</label>' +
-        ' <input class="form-control voluntario-e" onchange="updateTotalVoluntario('+ count +')" name="e'+ count +'" type="number" id="estudiante-'+ count +'" min="0" value="0">' +
+        ' <input class="form-control voluntario-e" onchange="updateTotalVoluntario('+ count +') " name="e'+ count +'" type="number" id="estudiante-'+ count +'" min="0" ' +
+        'value="'+ consejoPopular.estudiantes +'">' +
         ' </div>' +
         ' <div class="form-group">' +
         ' <label for="trabajador-'+ count +'">Trabajadores</label>' +
-        ' <input class="form-control voluntario-t" onchange="updateTotalVoluntario('+ count +')" name="t'+ count +'" type="number" id="trabajador-'+ count +'" min="0" value="0">' +
+        ' <input class="form-control voluntario-t" onchange="updateTotalVoluntario('+ count +')" name="t'+ count +'" type="number" id="trabajador-'+ count +'" min="0" ' +
+        'value="'+ consejoPopular.trabajadores +'">' +
         ' </div>' +
         ' <div class="form-group">' +
         ' <label for="no-cujae-'+ count +'">No Cujae</label>' +
-        ' <input class="form-control voluntario-nc" onchange="updateTotalVoluntario('+ count +')" name="nc'+ count +'" type="number" id="no-cujae-'+ count +'" min="0" value="0">' +
+        ' <input class="form-control voluntario-nc" onchange="updateTotalVoluntario('+ count +')" name="nc'+ count +'" type="number" id="no-cujae-'+ count +'" min="0" ' +
+        'value="'+ consejoPopular.no_cujae +'">' +
         ' </div>' +
         ' </div>' +
         ' <div class="form-group">' +
         ' <label for="casa-'+ count +'">Casas</label>' +
-        ' <input class="form-control casa" name="c'+ count +'" type="number" id="casa-'+ count +'" min="0" value="0">' +
+        ' <input class="form-control casa" name="c'+ count +'" type="number" id="casa-'+ count +'" min="0" ' +
+        'value="'+ consejoPopular.casas +'">' +
         ' </div>' +
         ' <div class="form-group">' +
         ' <label for="beneficiado-'+ count +'">Beneficiados</label>' +
-        ' <input class="form-control beneficiado" name="b'+ count +'" type="number" id="beneficiado-'+ count +'" min="0" value="0">' +
+        ' <input class="form-control beneficiado" name="b'+ count +'" type="number" id="beneficiado-'+ count +'" min="0" ' +
+        'value="'+ consejoPopular.beneficiados +'">' +
         ' </div>' +
         ' <div class="form-group">' +
         ' <label for="ausente-'+ count +'">Ausentes</label>' +
-        ' <input class="form-control ausente" name="a'+ count +'" type="number" id="ausente-'+ count +'" min="0" value="0">' +
+        ' <input class="form-control ausente" name="a'+ count +'" type="number" id="ausente-'+ count +'" min="0" ' +
+        'value="'+ consejoPopular.ausentes +'">' +
         ' </div>' +
         ' <div class="form-group">' +
         ' <label for="comentario-'+ count +'">Comentario</label>' +
-        ' <input class="form-control comentario" name="com'+ count +'" type="text" id="comentario-'+ count +'" placeholder="Comentario o nota">' +
+        ' <input class="form-control comentario" name="com'+ count +'" type="text" id="comentario-'+ count +'" placeholder="Comentario o nota" ' +
+        'value="'+ consejoPopular.comentario +'">' +
         ' </div>' +
         ' <div class="text-right">' +
         ' <button class="btn btn-danger btn-sm" onclick="deleteConsejoPopular('+ count +')">' +
@@ -129,10 +162,16 @@ function addconsejoPopular() {
     $('#cp'+count).html('<option value="0">-</option>').disabled = false;
     $.each(cps, function (index, value) {
         if (value.municipio === municipio.val()){
-            $('#cp'+count).append('<option value="'+ value.cp +'">'+ value.cp +'</ooption>');
+            if(value.cp === consejoPopular.nombre){
+                $('#cp'+count).append('<option value="'+ value.cp +'" selected>'+ value.cp +'</option>');
+            }
+            else {
+                $('#cp'+count).append('<option value="'+ value.cp +'">'+ value.cp +'</option>');
+            }
         }
     });
 
+    updateTotalVoluntario(count);
 }
 
 /** Acción del poton eliminar del consejo Popular

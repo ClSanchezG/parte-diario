@@ -94,6 +94,8 @@ function crearParte(){
         area.append('<a class="btn btn-info" href="whatsapp://send?text=' + encodeURIComponent(texto) +'" target="_blank" ' +
             ' action="share/whatsapp/share" >Enviar por Whatsapp</a>');
 
+        window.localStorage.setItem('parte', JSON.stringify(parte));
+
         //console.log(parte);
         //console.log(parteHtml);
         //console.log(parteTexto);
