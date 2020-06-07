@@ -95,7 +95,7 @@ function crearParte(){
             ' action="share/whatsapp/share" >Enviar por Whatsapp</a>');
 
         window.localStorage.setItem('parte', JSON.stringify(parte));
-
+        console.log(window.localStorage.getItem('parte'));
         //console.log(parte);
         //console.log(parteHtml);
         //console.log(parteTexto);
