@@ -5,16 +5,16 @@
     <meta
       name="description"
       content="Formato de envio de partes diarios de la CUJAE
-     del movimento de donacion de sangre"
+     del movimento de voluntarios COVID-19"
     />
-    <meta name="keywords" content="form js format whatsapp" />
+    <meta name="keywords" content="form js volunteers format whatsapp" />
     <meta name="author" content="Claudia Sánchez García, CUJAE" />
     <meta name="robots" content="noindex" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <title>Parte Donaciones</title>
+    <title>PM - Demanda</title>
     <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" />
     <link
@@ -27,10 +27,7 @@
     <div class="container">
       <div class="row">
         <div class="form col-xl-6 col-sm-12">
-          <h2 class="col-12">
-            Formato de Parte <br />
-            Donación de Sangre
-          </h2>
+          <h2 class="col-12">Demanda puesto de mando</h2>
           <div class="form-group">
             <!--Fecha-->
             <label for="date">Fecha</label>
@@ -45,43 +42,62 @@
               name="municipio"
             ></select>
           </div>
+          <h5>Voluntarios:</h5>
+
           <div class="card">
             <div class="form-group">
-              <!--Donantes Cujae-->
-              <label for="d-cujae">Donantes CUJAE</label>
+              <!--Activos-->
+              <label for="m-activos">Activos</label>
               <input
                 class="form-control"
                 type="number"
-                id="d-cujae"
+                id="m-activos"
                 value="0"
                 min="0"
               />
             </div>
             <div class="form-group">
-              <!--Reserva-->
-              <label for="d-reserva">Reserva</label>
+              <!--Coordinacion-->
+              <label for="m-coordinacion">Coordinación</label>
               <input
                 class="form-control"
                 type="number"
-                id="d-reserva"
+                id="m-coordinacion"
+                value="0"
+                min="0"
+              />
+            </div>
+            <div class="form-group">
+              <!--Bajas-->
+              <label for="m-bajas">Bajas</label>
+              <input
+                class="form-control"
+                type="number"
+                id="m-bajas"
                 value="0"
                 min="0"
               />
             </div>
           </div>
 
+          <div id="clasificacion-container"><!--Nuevos Activos--></div>
+          <button class="btn btn-success" onclick="addNuevaClasificacion()">
+            <i class="fa fa-plus"></i> Nueva Clasificacion
+          </button>
+
           <div class="form-group">
-            <label for="d-incidencias">Incidencias</label>
+            <label for="comentario">Comentario</label>
             <textarea
               class="form-control"
-              id="d-incidencias"
-              placeholder="(opcional)"
+              id="comentario"
+              placeholder="Comentario o nota sobre el parte"
             ></textarea>
           </div>
         </div>
 
         <div class="col-xl-6 col-sm-12 pt-sm-4 mt-sm-3" id="v-container">
           <div class="text-center">
+            <!--Esta funcion de Crear parte esta en pm-demanda.js-->
             <button class="btn btn-info" onclick="crearParte()">
               <i class="fa fa-file-text"></i> CREAR PARTE
             </button>
@@ -97,9 +113,8 @@
   <script src="modules/bootstrap/js/popper.min.js"></script>
   <script src="modules/bootstrap/js/bootstrap.min.js"></script>
   <script src="data/municipios.js"></script>
-  <script src="data/facultades.js"></script>
   <script src="js/objetos.js"></script>
   <script src="js/utils.js"></script>
-  <script src="js/donaciones.js"></script>
   <script src="js/municipio.js"></script>
+  <script src="js/pm-demanda.js"></script>
 </html>
