@@ -19,4 +19,8 @@ const clasificaciones = [
     id: 5,
     clasificacion: "Contacto sin condiciones",
   },
+  {
+    id: 6,
+    clasificacion: "Contacto sin condiciones",
+  },
 ];
