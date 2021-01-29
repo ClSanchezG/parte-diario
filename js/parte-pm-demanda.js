@@ -8,13 +8,24 @@ function crearParte() {
 
   parte.municipio = municipio.val(); //Municipio
 
-  let clasificaciones = document.querySelectorAll(".cp-data");
+  let clasificaciones = document.querySelectorAll(".covid-form");
 
   for (let i = 0; i < clasificaciones.length; i++) {
     //Datos de los Consejos Populares
-    let nuevo_cp = new ParteConsejoPopular();
+    let nuevoClas = new ClasificacionesDemanda();
+    nuevoClas.clasificacion = clasificaciones[i].querySelector(
+      ".clasificacion"
+    ).value;
+    nuevoClas.cantidad = clasificaciones[i].querySelector(
+      ".clasificacion-cant"
+    ).value;
+    nuevoClas.observacion = clasificaciones[i].querySelector(
+      ".clasificacion-obs"
+    ).value;
 
-    parte.clasificaciones.push(nuevo_cp);
+    if (nuevoClas.cantidad != 0) {
+      parte.clasificaciones.push(nuevoClas);
+    }
   }
 
   parte.observaciones = $("#observaciones").val();
@@ -22,22 +33,22 @@ function crearParte() {
   //Comprobar si el numero de activos es mayor que el total de voluntarios
 
   //formato para Web y Whatsapp
-  // let html = parteHTML(parte);
+  let html = parteHTML(parte);
   let texto = parteTexto(parte);
-
+  console.log("texto", texto, "html", html);
   //Añadiendo clase para css de la vista previa y incrustando el parte en el formato HTML
 
-  //area.html(html);
+  area.html(html);
 
   //Visualizacion del parte en formato texto para enviar a whatsapp y su botón
   area.append(`<textarea  class="form-control">${texto}</textarea>`);
-  /*area.append(
+  area.append(
     `<a class="btn btn-info" href="https://telegram.me/share/url?url=cierre&text=${encodeURIComponent(
       texto
     )}" target="_blank" action="share/telergam/share" >
       Enviar por Telegram
       </a>`
-  );*/
+  );
 
   //window.localStorage.setItem("parte-pm-demanda", JSON.stringify(parte));
   //console.log(parte);
@@ -68,7 +79,7 @@ function parteHTML(json) {
   for (let i = 0; i < json.clasificaciones.length; i++) {
     html += `
         <div class="v-cp card">
-            <h6 class="font-weight-bold">${json.clasificaciones[i].clasificación}: ${json.clasificaciones[i].cantidad} </h6>`;
+            <h6 class="font-weight-bold">${json.clasificaciones[i].clasificacion}: ${json.clasificaciones[i].cantidad} </h6>`;
     if (json.clasificaciones[i].observacion != "") {
       html += `<div class="v-comentario">
                 <p>${json.clasificaciones[i].observacion}</p>
@@ -86,21 +97,20 @@ function parteHTML(json) {
  * @returns {string} Listo para enviar a mensaje de Whatsapp
  */
 function parteTexto(json) {
-  let texto = `*Municipio: ${json.municipio}*\n
-    Día: ${json.fecha} \n\n
-    Pacientes:`;
+  let texto = `*Municipio: ${json.municipio}*
+    Día: ${json.fecha}\n 
+    Pacientes:\n`;
 
   for (let i = 0; i < json.clasificaciones.length; i++) {
-    texto += `${json.clasificaciones[i].clasificación}: ${json.clasificaciones[i].cantidad} \n`;
+    texto += `${json.clasificaciones[i].clasificacion}: ${json.clasificaciones[i].cantidad} \n`;
     if (json.clasificaciones[i].observacion != "") {
       texto += `_Observacion: ${json.clasificaciones[i].observacion}_\n`;
     }
-    texto += "\n";
   }
+  texto += "\n\n";
 
   if (json.observacionesGenerales) {
     texto += `_ Observaciones Generales: \n ${json.observacionesGenerales}_`;
   }
-
   return texto;
 }

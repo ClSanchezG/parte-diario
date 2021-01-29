@@ -1,11 +1,13 @@
 $(document).ready(function () {
   console.log("hellooo", clasificaciones);
 
-  clasificaciones.forEach((element, index) => {
+  let index = 0;
+  clasificaciones.forEach(function (element) {
     addNuevaClasificacion();
-    console.log("index", document.getElementById(`clasif-${index}`));
+    console.log("index", document.getElementById(`clasif-${index}`, index));
     document.getElementById(`clasif-${index}`).value = element.clasificacion;
     document.getElementById(`clasif-${index}`).disabled = true;
+    index += 1;
   });
 });
 
@@ -14,8 +16,8 @@ $(document).ready(function () {
  */
 function addNuevaClasificacion() {
   let container = $("#clasificacion-container").addClass("card"); //añade la clase card para que salga el borde si ya existia no pasa nada
-  let count = $(".clasificacion").length; //contador para poner el id que corresponde
-  // na: numero de activos, lo puedes modificar por clasificacion que es de lo que va este formulario (abajo te dejo un ejemplo)
+  let count = $(".covid-form").length; //contador para poner el id que corresponde
+  console.log(count);
   if (count === 0) {
     //Esto es para cuando no habia ninguna insertada porque esto es a modo de titulo general
     container.append(
@@ -29,13 +31,13 @@ function addNuevaClasificacion() {
         <div class="col-11">
             <span class="row">
                 <input class="form-control clasificacion col-10 col-md-4" type="text" id="clasif-${count}" min="1" placeholder="Clasificación">
-                <input class="form-control clasificacion col-2" type="number" id="clasif-cant-${count}" min="0">
-                <input class="form-control clasificacion col-12 col-md-6" type="text" id="clasif-obs-${count}" min="0" placeholder="Observaciones">
+                <input class="form-control clasificacion-cant col-2" type="number" value="0" id="clasif-cant-${count}" min="0">
+                <input class="form-control clasificacion-obs col-12 col-md-6" type="text" id="clasif-obs-${count}" min="0" placeholder="Observaciones">
             </span>
         </div>
         <div class="col-1">
             <span class="row">
-                <button class="btn btn-danger btn-sm" onclick="deleteClasificacion(${count}})">
+                <button class="btn btn-danger btn-sm" onclick="deleteClasificacion(${count})">
                 <i class="fa fa-trash"></i></button>
             </span>
         </div>

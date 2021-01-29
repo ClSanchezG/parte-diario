@@ -1,26 +1,26 @@
 const clasificaciones = [
   {
-    id: 1,
+    id: "A",
     clasificacion: "Confirmado sintomático",
   },
   {
-    id: 2,
-    clasificacion: "Confirmado asintomático",
+    id: "B",
+    clasificacion: "Confirmado asintomático alto riesgo",
   },
   {
-    id: 3,
-    clasificacion: "Sospechoso",
+    id: "C",
+    clasificacion: "Confirmado asintomático bajo riesgo",
   },
   {
-    id: 4,
-    clasificacion: "Viajero Sospechoso",
+    id: "D",
+    clasificacion: "Sospechoso alto riesgo",
   },
   {
-    id: 5,
-    clasificacion: "Contacto sin condiciones",
+    id: "E",
+    clasificacion: "Sospechoso bajo riesgo",
   },
   {
-    id: 6,
-    clasificacion: "Contacto sin condiciones",
+    id: "F",
+    clasificacion: "Contactos de primer orden",
   },
 ];
