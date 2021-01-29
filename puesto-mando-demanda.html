@@ -14,7 +14,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <title>PM - Demanda</title>
+    <title>Cierre Diario Puesto de Mando</title>
     <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" />
     <link
@@ -27,7 +27,8 @@
     <div class="container">
       <div class="row">
         <div class="form col-xl-6 col-sm-12">
-          <h2 class="col-12">Demanda puesto de mando</h2>
+          <!--Esto ya esta todo en talla solo fijate en los id de los input para cuando generes el parte-->
+          <h2 class="col-12">Formato de Parte Diario</h2>
           <div class="form-group">
             <!--Fecha-->
             <label for="date">Fecha</label>
@@ -42,6 +43,15 @@
               name="municipio"
             ></select>
           </div>
+          <!-- A partir de aqui tienes que adaptarlo necesitar recoger la siguiente info:
+            1.Registro de pedidos del SIUM (#)
+            2.Registros atendidos por el SIUM (#)
+            3.Por clasificación de pacientes (esto se inserta a partir de un listado todo esta explicado en el fichero js/pm-cierre.js)
+              3.1 solicitudes atendidas  (#)
+              3.2 traslados efectivos (#)
+            4.Pendientes de mas de 24hr (#)
+            5.Por ultimo incidencias por si quieren decir algo extra del parte (texto)
+          -->
           <h5>Voluntarios:</h5>
 
           <div class="card">
@@ -80,24 +90,25 @@
             </div>
           </div>
 
-          <div id="clasificacion-container"><!--Nuevos Activos--></div>
+          <div id="clasificacion-container"><!--Clasificaciones--></div>
           <button class="btn btn-success" onclick="addNuevaClasificacion()">
             <i class="fa fa-plus"></i> Nueva Clasificacion
           </button>
 
+          <!--Esto ya te lo hice-->
           <div class="form-group">
-            <label for="comentario">Comentario</label>
+            <label for="incidencias">Incidencias</label>
             <textarea
               class="form-control"
-              id="comentario"
-              placeholder="Comentario o nota sobre el parte"
+              id="incidencias"
+              placeholder="Incidencias ocurridas"
             ></textarea>
           </div>
         </div>
 
         <div class="col-xl-6 col-sm-12 pt-sm-4 mt-sm-3" id="v-container">
           <div class="text-center">
-            <!--Esta funcion de Crear parte esta en pm-demanda.js-->
+            <!--La funcion crear parte esta en el fichero de js/pm-cierre.js-->
             <button class="btn btn-info" onclick="crearParte()">
               <i class="fa fa-file-text"></i> CREAR PARTE
             </button>
@@ -113,8 +124,10 @@
   <script src="modules/bootstrap/js/popper.min.js"></script>
   <script src="modules/bootstrap/js/bootstrap.min.js"></script>
   <script src="data/municipios.js"></script>
+  <script src="data/clasificaciones.js"></script>
   <script src="js/objetos.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/municipio.js"></script>
+  <script src="js/parte-pm-demanda.js"></script>
   <script src="js/pm-demanda.js"></script>
 </html>

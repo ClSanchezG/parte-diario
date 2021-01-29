@@ -6,11 +6,26 @@ function PuestoMandoCierre() {
   this.clasificaciones = [];
   this.incidencias = "";
 }
+
 function ClasificacionesCierre() {
   this.clasificacion = "";
   this.clasificacion_id = 0;
   this.atendidos = 0;
   this.traslados_efectivos = 0;
+}
+
+function PuestoMandoDemanda() {
+  this.municipio = 0;
+  this.fecha = "";
+  this.clasificaciones = [];
+  this.observacionesGenerales = "";
+}
+
+function ClasificacionesDemanda() {
+  this.clasificacion = "";
+  this.clasificacion_id = 0;
+  this.cantidad = 0;
+  this.observaciones = "";
 }
 
 function ParteGeneral() {

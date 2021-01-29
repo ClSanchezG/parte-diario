@@ -1,74 +1,75 @@
-.container{
+.container {
 }
-.card{
-    border-radius: 10px;
-    padding: 15px;
-    margin: 10px 0;
+.card {
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px 0;
 }
 
 #v-container,
-.form{
-    padding: 15px 15px;
+.form {
+  padding: 15px 15px;
 }
 
-h2{
-    text-align: center;
+h2 {
+  text-align: center;
 }
 
-.card.cp-data{
-    padding: 20px;
+.card.cp-data {
+  padding: 20px;
 }
 
 button {
-    margin-top: 5px;
-    margin-bottom: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
-button>.fa {
-}
-
-#vista-previa{
-    display: inline-block;
-    padding: 15px;
-    margin-bottom: 30px;
+button > .fa {
 }
 
-.v-cp{
-    padding: 10px;
+#vista-previa {
+  display: inline-block;
+  padding: 15px;
+  margin-bottom: 30px;
+}
+
+.v-cp {
+  padding: 10px;
 }
 
 .v-comentario {
-    padding: 0 10px;
-    border-radius: 5px;
-    background-color: whitesmoke;
-    margin-bottom: 1rem;
+  padding: 0 10px;
+  border-radius: 5px;
+  background-color: whitesmoke;
+  margin-bottom: 1rem;
 }
 
-.v-comentario>p{
-    margin: 0;
+.v-comentario > p {
+  margin: 0;
 }
 
-textarea{
-    min-height: 25vh;
+textarea {
+  min-height: 25vh;
 }
 
-.btn-info{
-    margin: 10px;
+.btn-info {
+  margin: 10px;
 }
 
 .rb-form,
-.na-form{
-    padding: 0 10px;
+.covid-form,
+.na-form {
+  padding: 0 10px;
 }
 
-.rb-form>span,
-.na-form>span{
-    padding: 0;
+.rb-form > span,
+.covid-form > span,
+.na-form > span {
+  padding: 0;
 }
-
 
 #alerta {
-    position: sticky;
-    right: 0;
-    bottom: 0;
-    width: 100vw;
+  position: sticky;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
 }
