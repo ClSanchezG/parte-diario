@@ -6,6 +6,8 @@ function formatoFecha(date) {
   let dd = "";
   let mm = "";
   let yyyy = "";
+
+  console.log(date, "Fecha");
   for (let i = 0; i < date.length; i++) {
     if (i < 4) {
       yyyy += date[i];
@@ -23,4 +25,18 @@ function formatoFecha(date) {
       date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
   }
   return newFecha;
+}
+
+function formatoFechaCompleta(date) {
+  let fecha = new Date();
+  if (!date) {
+    fecha = new Date(Date.now());
+  }
+  let dia = fecha.getDate();
+  let mes = fecha.getMonth() + 1;
+  let anyo = fecha.getFullYear();
+  let horas = fecha.getHours();
+  let min = fecha.getMinutes();
+
+  return `${dia}/${mes}/${anyo} ${horas}:${min}`;
 }

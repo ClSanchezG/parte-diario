@@ -4,10 +4,8 @@ let municipio = $("#municipio");
  * consejo Popular
  */
 $(document).ready(function () {
-  console.log("hellooo");
   municipio.html('<option value="NO SELECCIONADO">-</option>');
   $.each(municipios, function (index, value) {
-    console.log(value.nombre);
     municipio.append(
       '<option value="' + value.nombre + '">' + value.nombre + "</option>"
     );
@@ -20,14 +18,14 @@ $(document).ready(function () {
       updateTotalVoluntario(index);
     });
   }
-
+  /*
   let parte = window.localStorage.getItem("parte");
   if (parte) {
     parte = JSON.parse(parte);
     setPrevio(parte);
   } else {
     addconsejoPopular();
-  }
+  }*/
   $("#close-alerta").on("click;", function () {
     this.preventDefault();
   });

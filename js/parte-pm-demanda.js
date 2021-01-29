@@ -4,7 +4,7 @@
 function crearParte() {
   let parte = new PuestoMandoDemanda(); //Esto se sustituye por el objeto que hay en el fichero objetos.js (PuestoMandoCierre)
 
-  parte.fecha = formatoFecha($("#date").val()); //Fecha
+  parte.fecha = Date.now(); //Fecha
 
   parte.municipio = municipio.val(); //Municipio
 
@@ -28,7 +28,7 @@ function crearParte() {
     }
   }
 
-  parte.observaciones = $("#incidencias").val();
+  parte.observacionesGenerales = $("#observaciones").val();
   let area = $("#vista-previa").addClass("card");
   //Comprobar si el numero de activos es mayor que el total de voluntarios
 
@@ -70,9 +70,11 @@ function crearParte() {
  * @returns {string} listo para añadir al elemento contenedor
  */
 function parteHTML(json) {
+  const fechaActual = formatoFechaCompleta(json.fecha);
+
   let html = `
     <h4 class="font-weight-bold">${json.municipio}</h4>
-    <h5>Día: ${json.fecha}</h5>
+    <h5>Fecha: ${fechaActual}</h5>
     <h5>Pacientes:</h5>
     `;
 
@@ -97,9 +99,11 @@ function parteHTML(json) {
  * @returns {string} Listo para enviar a mensaje de Whatsapp
  */
 function parteTexto(json) {
+  const fechaActual = formatoFechaCompleta(json.fecha);
+
   let texto = `**${json.municipio}**
-    Día: ${json.fecha}\n 
-    Pacientes:\n`;
+  Fecha: ${fechaActual}\n 
+  Pacientes:\n`;
 
   for (let i = 0; i < json.clasificaciones.length; i++) {
     texto += `${json.clasificaciones[i].clasificacion}: ${json.clasificaciones[i].cantidad} \n`;
@@ -107,13 +111,13 @@ function parteTexto(json) {
       texto += `__Observacion: ${json.clasificaciones[i].observacion}__\n`;
     }
   }
-  texto += "\n\n";
 
   if (json.observacionesGenerales) {
+    texto += "\n";
     texto += `__ Observaciones Generales: \n ${json.observacionesGenerales}__`;
   }
 
   // JSON STRING
-  texto += `\n\n\n\n##DATA##${JSON.stringify(json)}`;
+  texto += `\n\n##DATA##${JSON.stringify(json)}`;
   return texto;
 }

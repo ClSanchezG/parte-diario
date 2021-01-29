@@ -4,7 +4,7 @@
 function crearParte() {
   let parte = new PuestoMandoCierre(); //Esto se sustituye por el objeto que hay en el fichero objetos.js (PuestoMandoCierre)
 
-  parte.fecha = formatoFecha($("#date").val()); //Fecha
+  parte.fecha = Date.now(); //Fecha
 
   parte.municipio = municipio.val(); //Municipio
 
@@ -22,7 +22,10 @@ function crearParte() {
     clasif.clasificacion = clasi[i].value;
     clasif.atendidos = $("#atendidos-" + i).val();
     clasif.traslados_efectivos = $("#efectivos-" + i).val();
-    parte.clasificaciones.push(clasif);
+
+    if (clasif.atendidos && clasif.traslados_efectivos) {
+      parte.clasificaciones.push(clasif);
+    }
   }
 
   let area = $("#vista-previa").addClass("card");
@@ -67,17 +70,15 @@ function crearParte() {
  * @returns {string} listo para añadir al elemento contenedor
  */
 function parteHTML(json) {
-  //let v = json.activos + json.coordinacion;
+  const fechaActual = formatoFechaCompleta(json.fecha);
 
   let html = `
       <h4 class="font-weight-bold">${json.municipio}</h4>
-      <h5>Día: ${json.fecha}</h5>
+      <h5>Día: ${fechaActual}</h5>
       <h6><i class="fa fa-chevron-right"></i>  Registros pedidos al SIUM: ${json.pedidos_sium}</h6>
       <h6><i class="fa fa-chevron-right"></i>  Solicitudes atendidas por el SIUM: ${json.atendidos_sium}</h6>
       <h6><i class="fa fa-chevron-right"></i>  Pendientes de más de 24 horas: ${json.pendientes}</h6>
-      <h6>Solicitudes atendidas por clasificación:</h6>
-      `;
-
+       `;
   for (let i = 0; i < json.clasificaciones.length; i++) {
     html += `
           <div class="v-cp card">
@@ -100,8 +101,10 @@ function parteHTML(json) {
  * @returns {string} Listo para enviar a mensaje de Whatsapp
  */
 function parteTexto(json) {
+  const fechaActual = formatoFechaCompleta(json.fecha);
+
   let texto = `**${json.municipio}**
-      Día: ${json.fecha} 
+      Día: ${fechaActual} 
         ◽ Cantidad de pedidos al SIUM: ${json.pedidos_sium} 
         💚 Cantidad de atendidos por el SIUM: ${json.atendidos_sium} 
         🔸 Pendientes mas de 24 horas: ${json.pendientes} \n
