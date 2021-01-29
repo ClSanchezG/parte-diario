@@ -100,7 +100,7 @@ function parteHTML(json) {
  * @returns {string} Listo para enviar a mensaje de Whatsapp
  */
 function parteTexto(json) {
-  let texto = `*${json.municipio}*
+  let texto = `**${json.municipio}**
       Día: ${json.fecha} 
         ◽ Cantidad de pedidos al SIUM: ${json.pedidos_sium} 
         💚 Cantidad de atendidos por el SIUM: ${json.atendidos_sium} 
@@ -108,15 +108,16 @@ function parteTexto(json) {
       `;
 
   for (let i = 0; i < json.clasificaciones.length; i++) {
-    texto += `🏘 *Clasificacion de Paciente: ${json.clasificaciones[i].clasificacion} *
+    texto += `🏘 **Clasificacion de Paciente: ${json.clasificaciones[i].clasificacion} **
               • Atendidos: ${json.clasificaciones[i].atendidos} 
               • Traslados efectivos: ${json.clasificaciones[i].traslados_efectivos} \n
           `;
   }
 
   if (json.incidencias) {
-    texto += `_${json.incidencias}_`;
+    texto += `__${json.incidencias}__`;
   }
-
+  // JSON STRING
+  texto += `\n\n\n\n##DATA##${JSON.stringify(json)}`;
   return texto;
 }

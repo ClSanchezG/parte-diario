@@ -28,7 +28,7 @@ function crearParte() {
     }
   }
 
-  parte.observaciones = $("#observaciones").val();
+  parte.observaciones = $("#incidencias").val();
   let area = $("#vista-previa").addClass("card");
   //Comprobar si el numero de activos es mayor que el total de voluntarios
 
@@ -43,7 +43,7 @@ function crearParte() {
   //Visualizacion del parte en formato texto para enviar a whatsapp y su botón
   area.append(`<textarea  class="form-control">${texto}</textarea>`);
   area.append(
-    `<a class="btn btn-info" href="https://telegram.me/share/url?url=cierre&text=${encodeURIComponent(
+    `<a class="btn btn-info" href="https://telegram.me/share/url?url=parte%20diario&text=${encodeURIComponent(
       texto
     )}" target="_blank" action="share/telergam/share" >
       Enviar por Telegram
@@ -97,20 +97,23 @@ function parteHTML(json) {
  * @returns {string} Listo para enviar a mensaje de Whatsapp
  */
 function parteTexto(json) {
-  let texto = `*${json.municipio}*
+  let texto = `**${json.municipio}**
     Día: ${json.fecha}\n 
     Pacientes:\n`;
 
   for (let i = 0; i < json.clasificaciones.length; i++) {
     texto += `${json.clasificaciones[i].clasificacion}: ${json.clasificaciones[i].cantidad} \n`;
     if (json.clasificaciones[i].observacion != "") {
-      texto += `_Observacion: ${json.clasificaciones[i].observacion}_\n`;
+      texto += `__Observacion: ${json.clasificaciones[i].observacion}__\n`;
     }
   }
   texto += "\n\n";
 
   if (json.observacionesGenerales) {
-    texto += `_ Observaciones Generales: \n ${json.observacionesGenerales}_`;
+    texto += `__ Observaciones Generales: \n ${json.observacionesGenerales}__`;
   }
+
+  // JSON STRING
+  texto += `\n\n\n\n##DATA##${JSON.stringify(json)}`;
   return texto;
 }
