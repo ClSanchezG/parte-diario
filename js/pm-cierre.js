@@ -15,12 +15,14 @@ function addNuevaClasificacion() {
   // las cosas estan con bootstrap, entonces las clases de row, col-..., btn, son las cosas de bootstrap, no hay css.
   container.append(`
       <div class="na-form row" id="na-form-${count}">
-          <span class="col-11">
-              <input class="form-control na col-11" type="text" id="na-${count}" min="0" placeholder="Datos o comentario">
+          <span class="col-4">
+              <input class="form-control clasificacion col-11" type="text" id="clasificacion-${count}" min="0" placeholder="Tipo de Paciente">
           </span>
-          <span class="col-1">
-              <button class="btn btn-danger btn-sm" onclick="deleteNuevoActivo(${count}})">
-              <i class="fa fa-trash"></i></button>
+          <span class="col-4">
+              <input class="form-control col-11" type="number" id="atendidos-${count}" min="0" placeholder="Solicitudes atendidas">
+          </span>
+          <span class="col-4">
+              <input class="form-control col-11" type="number" id="efectivos-${count}" min="0" placeholder="Traslados efectivos">
           </span>
       </div>`);
 }

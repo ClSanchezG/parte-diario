@@ -1,10 +1,12 @@
 // Valores por defecto y declaracion de objeto
 function PuestoMandoCierre() {
+  this.fecha = "";
   this.municipio = 0;
   this.pedidos_sium = 0;
   this.atendidos_sium = 0;
   this.clasificaciones = [];
   this.incidencias = "";
+  this.pendientes = 0;
 }
 
 function ClasificacionesCierre() {

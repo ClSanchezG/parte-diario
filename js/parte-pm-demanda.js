@@ -71,7 +71,7 @@ function crearParte() {
  */
 function parteHTML(json) {
   let html = `
-    <h4 class="font-weight-bold">Municipio: ${json.municipio}</h4>
+    <h4 class="font-weight-bold">${json.municipio}</h4>
     <h5>Día: ${json.fecha}</h5>
     <h5>Pacientes:</h5>
     `;
@@ -97,7 +97,7 @@ function parteHTML(json) {
  * @returns {string} Listo para enviar a mensaje de Whatsapp
  */
 function parteTexto(json) {
-  let texto = `*Municipio: ${json.municipio}*
+  let texto = `*${json.municipio}*
     Día: ${json.fecha}\n 
     Pacientes:\n`;
 
