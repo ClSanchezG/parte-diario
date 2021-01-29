@@ -92,10 +92,10 @@ function crearParte() {
     //Visualizacion del parte en formato texto para enviar a whatsapp y su botón
     area.append(`<textarea  class="form-control">${texto}</textarea>`);
     area.append(
-      `<a class="btn btn-info" href="whatsapp://send?text=${encodeURIComponent(
+      `<a class="btn btn-info" href="https://telegram.me/share/url?url=&text=${encodeURIComponent(
         texto
-      )}" target="_blank" action="share/whatsapp/share" >
-      Enviar por Whatsapp
+      )}" target="_blank" action="share/telergam/share" >
+      Enviar por Telegram
       </a>`
     );
 
