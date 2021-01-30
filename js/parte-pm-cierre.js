@@ -21,9 +21,9 @@ function crearParte() {
     clasif.clasificacion_id = i;
     clasif.clasificacion = clasi[i].value;
     clasif.atendidos = $("#atendidos-" + i).val();
-    clasif.traslados_efectivos = $("#efectivos-" + i).val();
+    clasif.traslados_efectivos = $("#efectivos-" + i).val() || 0;
 
-    if (clasif.atendidos && clasif.traslados_efectivos) {
+    if (clasif.atendidos) {
       console.log(clasif, "Claisificacion");
       if (clasif.atendidos >= clasif.traslados_efectivos) {
         parte.clasificaciones.push(clasif);
