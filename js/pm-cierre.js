@@ -33,10 +33,10 @@ function addNuevaClasificacion() {
               <input class="form-control clasificacion" type="text" id="clasificacion-${count}" min="0" placeholder="clasificacion">
           </span>
           <span class="col-2">
-              <input class="form-control" type="number" id="atendidos-${count}" min="0">
+              <input class="form-control atendidos" type="number" id="atendidos-${count}" min="0">
           </span>
           <span class="col-2">
-              <input class="form-control" type="number" id="efectivos-${count}" min="0">
+              <input class="form-control efectivos" type="number" id="efectivos-${count}" min="0">
           </span>
           <button class="btn btn-danger col-2 offset-10 btn-sm" id="delete-${count}" onclick="deleteClasificacion(${count})">
       <i class="fa fa-trash"></i> Eliminar</button>

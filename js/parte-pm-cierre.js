@@ -14,7 +14,7 @@ function crearParte() {
   parte.pendientes = parseInt($("#m-pendientes").val()) || 0;
   parte.incidencias = $("#incidencias").val();
 
-  if (parte.pedidos_sium < atendidos) {
+  if (+parte.pedidos_sium < +parte.atendidos_sium) {
     noError = false;
     $("body").append(`
     <div class="alert alert-danger alert-dismissible fade-in fade show" role="alert" id="alerta">
@@ -26,20 +26,24 @@ function crearParte() {
     </div>`);
   }
 
-  let clasi = $(".clasificacion");
+  let clasi = $(".covid-form");
 
   for (let i = 0; i < clasi.length; i++) {
     let clasif = new ClasificacionesCierre();
     clasif.clasificacion_id = i;
-    clasif.clasificacion = clasi[i].value;
-    clasif.atendidos = $("#atendidos-" + i).val();
-    clasif.traslados_efectivos = $("#efectivos-" + i).val() || 0;
+    clasif.clasificacion = clasi[i].querySelector(".clasificacion").value;
+    //clasif.atendidos = $("#atendidos-" + i).val();
+    clasif.atendidos = clasi[i].querySelector(".atendidos").value;
+
+    //clasif.traslados_efectivos = $("#efectivos-" + i).val() || 0;
+    clasif.traslados_efectivos =
+      clasi[i].querySelector(".efectivos").value || 0;
+    console.log("Atendidos " + i);
+    console.log("Efectivos " + i);
 
     if (clasif.atendidos) {
       console.log(clasif, "Claisificacion");
-      if (clasif.atendidos >= clasif.traslados_efectivos) {
-        parte.clasificaciones.push(clasif);
-      } else {
+      if (+clasif.atendidos < +clasif.traslados_efectivos) {
         noError = false;
         $("body").append(`
             <div class="alert alert-danger alert-dismissible fade-in fade show" role="alert" id="alerta">
@@ -49,6 +53,8 @@ function crearParte() {
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>`);
+      } else {
+        parte.clasificaciones.push(clasif);
       }
     }
   }
