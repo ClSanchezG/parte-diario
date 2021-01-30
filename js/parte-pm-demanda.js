@@ -41,7 +41,9 @@ function crearParte() {
   area.html(html);
 
   //Visualizacion del parte en formato texto para enviar a whatsapp y su botón
-  area.append(`<textarea  class="form-control">${texto}</textarea>`);
+  area.append(
+    `<textarea  class="form-control" id="copytextarea">${texto}</textarea>`
+  );
   area.append(
     `<a class="btn btn-info" href="https://telegram.me/share/url?url=${encodeURI(
       "Solicitud de Demanda"
@@ -51,7 +53,13 @@ function crearParte() {
       Enviar por Telegram
       </a>`
   );
-
+  /*
+  area.append(
+    `<button class="btn btn-secondary " id="textareacopybtn" onclick="copyToClipboard">
+      Copiar al Portapapeles
+      </button>`
+  );
+*/
   //window.localStorage.setItem("parte-pm-demanda", JSON.stringify(parte));
   //console.log(parte);
   //console.log(parteHtml);
@@ -111,10 +119,11 @@ function parteTexto(json) {
 😷Pacientes:\n`;
 
   for (let i = 0; i < json.clasificaciones.length; i++) {
-    texto += `   ▪️${json.clasificaciones[i].clasificacion}: ${json.clasificaciones[i].cantidad} \n`;
+    texto += `   🔸${json.clasificaciones[i].clasificacion}: ${json.clasificaciones[i].cantidad} \n`;
     if (json.clasificaciones[i].observacion != "") {
       texto += `__🩺Observacion: ${json.clasificaciones[i].observacion}__\n`;
     }
+    texto += "\n";
   }
 
   if (json.observacionesGenerales) {
