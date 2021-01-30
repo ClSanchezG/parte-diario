@@ -118,16 +118,15 @@ function parteTexto(json) {
 
   let texto = `**${json.municipio}**
       Día: ${fechaActual} 
-        ◽ Cantidad de pedidos al SIUM: ${json.pedidos_sium} 
-        💚 Cantidad de atendidos por el SIUM: ${json.atendidos_sium} 
-        🔸 Pendientes mas de 24 horas: ${json.pendientes} \n
+      ☎️ Cantidad de pedidos al SIUM: ${json.pedidos_sium} 
+      ✅ Cantidad de atendidos por el SIUM: ${json.atendidos_sium} 
+      🕔 Pendientes mas de 24 horas: ${json.pendientes} \n
       `;
 
   for (let i = 0; i < json.clasificaciones.length; i++) {
-    texto += `🏘 **Clasificacion de Paciente: ${json.clasificaciones[i].clasificacion} **
-              • Atendidos: ${json.clasificaciones[i].atendidos} 
-              • Traslados efectivos: ${json.clasificaciones[i].traslados_efectivos} \n
-          `;
+    texto += `🩺 **Clasificación de Paciente: ${json.clasificaciones[i].clasificacion} **
+    📝 Atendidos: ${json.clasificaciones[i].atendidos} 
+    🚑 Traslados efectivos: ${json.clasificaciones[i].traslados_efectivos} \n`;
   }
 
   if (json.incidencias) {
