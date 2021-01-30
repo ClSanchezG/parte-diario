@@ -14,8 +14,20 @@ function crearParte() {
   parte.pendientes = parseInt($("#m-pendientes").val()) || 0;
   parte.incidencias = $("#incidencias").val();
 
+  if (parte.pedidos_sium < atendidos) {
+    noError = false;
+    $("body").append(`
+    <div class="alert alert-danger alert-dismissible fade-in fade show" role="alert" id="alerta">
+      <strong>¡Datos de comunicacion con el SIUM incorrectos!</strong>
+      <p>Las pedidos son menos que los atendidos</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="close-alerta">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>`);
+  }
+
   let clasi = $(".clasificacion");
-  //console.log(nuevos_activos);
+
   for (let i = 0; i < clasi.length; i++) {
     let clasif = new ClasificacionesCierre();
     clasif.clasificacion_id = i;
@@ -69,17 +81,6 @@ function crearParte() {
     //console.log(parteHtml);
     //console.log(parteTexto);
   }
-  //else {
-  // console.log("alertaaaa\n");
-  /*$("body").append(`
-          <div class="alert alert-warning alert-dismissible fade-in fade show" role="alert" id="alerta">
-            <strong>¡Total de Voluntarios del parte.fecha excede los Voluntarios activos!</strong>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="close-alerta">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>`);
-      area.html("").removeClass("card");*/
-  //}
 }
 /** Genera el parte en formato HTML
  * @param json formato de datos
@@ -97,15 +98,15 @@ function parteHTML(json) {
        `;
   for (let i = 0; i < json.clasificaciones.length; i++) {
     html += `
-          <div class="v-cp card">
-              <h6 class="font-weight-bold">Clasificación: ${json.clasificaciones[i].clasificacion}</h6>
-              <p>
-                  <br>
-                  <i class="fa fa-chevron-right"></i> Atendidos: ${json.clasificaciones[i].atendidos}
-                  <br>
-                  <i class="fa fa-chevron-right"></i> Traslados efectivos: ${json.clasificaciones[i].traslados_efectivos}
-              </p>
-          </div>`;
+    <div class="v-cp card">
+        <h6 class="font-weight-bold">Clasificación: ${json.clasificaciones[i].clasificacion}</h6>
+        <p>
+            <br>
+            <i class="fa fa-chevron-right"></i> Atendidos: ${json.clasificaciones[i].atendidos}
+            <br>
+            <i class="fa fa-chevron-right"></i> Traslados efectivos: ${json.clasificaciones[i].traslados_efectivos}
+        </p>
+    </div>`;
   }
 
   html += `<div class="v-comentario"><p>${json.incidencias}</p></div>`;
