@@ -43,9 +43,11 @@ function crearParte() {
   //Visualizacion del parte en formato texto para enviar a whatsapp y su botón
   area.append(`<textarea  class="form-control">${texto}</textarea>`);
   area.append(
-    `<a class="btn btn-info" href="https://telegram.me/share/url?url=parte%20diario&text=${encodeURIComponent(
+    `<a class="btn btn-info" href="https://telegram.me/share/url?url=${encodeURI(
+      "Solicitud de Demanda"
+    )}&text=${encodeURIComponent(
       texto
-    )}" target="_blank" action="share/telergam/share" >
+    )}" target="_blank" action="share/telegram/share" >
       Enviar por Telegram
       </a>`
   );
