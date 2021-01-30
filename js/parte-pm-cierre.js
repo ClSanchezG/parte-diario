@@ -3,7 +3,7 @@
  */
 function crearParte() {
   let parte = new PuestoMandoCierre(); //Esto se sustituye por el objeto que hay en el fichero objetos.js (PuestoMandoCierre)
-
+  let noError = true;
   parte.fecha = Date.now(); //Fecha
 
   parte.municipio = municipio.val(); //Municipio
@@ -23,12 +23,23 @@ function crearParte() {
     clasif.atendidos = $("#atendidos-" + i).val();
     clasif.traslados_efectivos = $("#efectivos-" + i).val();
 
-    if (clasif.atendidos && clasif.traslados_efectivos) {
-      parte.clasificaciones.push(clasif);
+    if (clasif.atendidos >= clasif.traslados_efectivos) {
+      if (clasif.atendidos && clasif.traslados_efectivos) {
+        parte.clasificaciones.push(clasif);
+      }
+    } else {
+      noError = false;
+      $("body").append(`
+          <div class="alert alert-danger alert-dismissible fade-in fade show" role="alert" id="alerta">
+            <strong>¡Las solicitudes atendidas son menos que los traslados efectivos!</strong>
+            <p>Clasificación: ${clasif.clasificacion}</p>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="close-alerta">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>`);
     }
   }
 
-  let area = $("#vista-previa").addClass("card");
   //Comprobar si el numero de activos es mayor que el total de voluntarios
   //if (parte.activos >= parte.total_voluntarios) {
   //formato para Web y Whatsapp
@@ -36,24 +47,26 @@ function crearParte() {
   let texto = parteTexto(parte);
 
   //Añadiendo clase para css de la vista previa y incrustando el parte en el formato HTML
+  if (noError) {
+    let area = $("#vista-previa").addClass("card");
+    area.html(html);
 
-  area.html(html);
-
-  //Visualizacion del parte en formato texto para enviar a whatsapp y su botón
-  area.append(`<textarea  class="form-control">${texto}</textarea>`);
-  area.append(
-    `<a class="btn btn-info" href="whatsapp://send?text=${encodeURIComponent(
-      texto
-    )}" target="_blank" action="share/whatsapp/share" >
+    //Visualizacion del parte en formato texto para enviar a whatsapp y su botón
+    area.append(`<textarea class="form-control">${texto}</textarea>`);
+    area.append(
+      `<a class="btn btn-info" href="whatsapp://send?text=${encodeURIComponent(
+        texto
+      )}" target="_blank" action="share/whatsapp/share" >
         Enviar por Whatsapp
         </a>`
-  );
+    );
 
-  window.localStorage.setItem("parte", JSON.stringify(parte));
-  //console.log(parte);
-  //console.log(parteHtml);
-  //console.log(parteTexto);
-  //} else {
+    window.localStorage.setItem("parte", JSON.stringify(parte));
+    //console.log(parte);
+    //console.log(parteHtml);
+    //console.log(parteTexto);
+  }
+  //else {
   // console.log("alertaaaa\n");
   /*$("body").append(`
           <div class="alert alert-warning alert-dismissible fade-in fade show" role="alert" id="alerta">

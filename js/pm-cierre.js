@@ -21,9 +21,9 @@ function addNuevaClasificacion() {
   if (count === 0) {
     container.append(
       `<h5 id="clasificacion-label">Clasificaciones de Pacientes:</h5>
-      <div class="row text-center mb-1">
-        <span class="col-2 offset-8">SA</span>
-        <span class="col-2">TE</span>
+      <div class="row text-center px-2 mb-1">
+        <span class="col-2 px-0 offset-8">SA</span>
+        <span class="col-2 px-0 ">TE</span>
       </div>`
     );
   }
