@@ -53,13 +53,12 @@ function crearParte() {
       Enviar por Telegram
       </a>`
   );
-  /*
   area.append(
-    `<button class="btn btn-secondary " id="textareacopybtn" onclick="copyToClipboard">
+    `<button class="btn btn-secondary " id="textareacopybtn" onclick="copyToClipboard()">
       Copiar al Portapapeles
       </button>`
   );
-*/
+
   //window.localStorage.setItem("parte-pm-demanda", JSON.stringify(parte));
   //console.log(parte);
   //console.log(parteHtml);

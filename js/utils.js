@@ -40,3 +40,18 @@ function formatoFechaCompleta(date) {
 
   return `${dia}/${mes}/${anyo} ${horas}:${min}`;
 }
+
+function notify(msg, desc, status) {
+  let s = "warning";
+  if (status == "danger" || status == "success") {
+    s = status;
+  }
+  $("body").append(`
+            <div class="alert alert-${status} alert-dismissible fade-in fade show" role="alert" id="alerta">
+              <strong>${msg}</strong>
+              <p>${desc}</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="close-alerta">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>`);
+}
