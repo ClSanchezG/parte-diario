@@ -28,8 +28,12 @@ function addNuevaClasificacion() {
   container.append(`
     <div class="covid-form row mb-3" id="clasificacion-form-${count}">
       <input class="form-control clasificacion col-12" type="text" id="clasif-${count}" min="1" placeholder="Clasificación">     
-      <span class="col-4"><label>Cantidad: </label></span>
-      <input class="form-control clasificacion-cant col-8" type="number" value="0" id="clasif-cant-${count}" min="0">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">#</span>
+        </div>
+        <input class="form-control clasificacion-cant col-12" type="number" id="clasif-cant-${count}" min="0" placeholder="Cantidad">
+      </div>
       <input class="form-control clasificacion-obs col-12" type="text" id="clasif-obs-${count}" min="0" placeholder="Observaciones">
       <button class="btn btn-danger col-12 btn-sm" id="delete-${count}" onclick="deleteClasificacion(${count})">
       <i class="fa fa-trash"></i> Eliminar</button>

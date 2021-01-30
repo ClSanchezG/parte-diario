@@ -23,20 +23,21 @@ function crearParte() {
     clasif.atendidos = $("#atendidos-" + i).val();
     clasif.traslados_efectivos = $("#efectivos-" + i).val();
 
-    if (clasif.atendidos >= clasif.traslados_efectivos) {
-      if (clasif.atendidos && clasif.traslados_efectivos) {
+    if (clasif.atendidos && clasif.traslados_efectivos) {
+      console.log(clasif, "Claisificacion");
+      if (clasif.atendidos >= clasif.traslados_efectivos) {
         parte.clasificaciones.push(clasif);
+      } else {
+        noError = false;
+        $("body").append(`
+            <div class="alert alert-danger alert-dismissible fade-in fade show" role="alert" id="alerta">
+              <strong>¡Las solicitudes atendidas son menos que los traslados efectivos!</strong>
+              <p>Clasificación: ${clasif.clasificacion}</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="close-alerta">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>`);
       }
-    } else {
-      noError = false;
-      $("body").append(`
-          <div class="alert alert-danger alert-dismissible fade-in fade show" role="alert" id="alerta">
-            <strong>¡Las solicitudes atendidas son menos que los traslados efectivos!</strong>
-            <p>Clasificación: ${clasif.clasificacion}</p>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="close-alerta">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>`);
     }
   }
 
@@ -57,7 +58,7 @@ function crearParte() {
       `<a class="btn btn-info" href="whatsapp://send?text=${encodeURIComponent(
         texto
       )}" target="_blank" action="share/whatsapp/share" >
-        Enviar por Whatsapp
+        Enviar por Telegram
         </a>`
     );
 
@@ -117,11 +118,11 @@ function parteTexto(json) {
   const fechaActual = formatoFechaCompleta(json.fecha);
 
   let texto = `**${json.municipio}**
-      Día: ${fechaActual} 
-      ☎️ Cantidad de pedidos al SIUM: ${json.pedidos_sium} 
-      ✅ Cantidad de atendidos por el SIUM: ${json.atendidos_sium} 
-      🕔 Pendientes mas de 24 horas: ${json.pendientes} \n
-      `;
+  🗓 Fecha: ${fechaActual}\n 
+  ☎️ Cantidad de pedidos al SIUM: ${json.pedidos_sium} 
+  ✅ Cantidad de atendidos por el SIUM: ${json.atendidos_sium} 
+  🕔 Pendientes mas de 24 horas: ${json.pendientes} \n
+  `;
 
   for (let i = 0; i < json.clasificaciones.length; i++) {
     texto += `🩺 **Clasificación de Paciente: ${json.clasificaciones[i].clasificacion} **
@@ -133,6 +134,6 @@ function parteTexto(json) {
     texto += `__${json.incidencias}__`;
   }
   // JSON STRING
-  texto += `\n\n\n\n##DATA##${JSON.stringify(json)}`;
+  texto += `\n##DATA##${JSON.stringify(json)}`;
   return texto;
 }

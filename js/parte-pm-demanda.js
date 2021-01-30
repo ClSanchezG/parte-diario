@@ -75,21 +75,24 @@ function parteHTML(json) {
   let html = `
     <h4 class="font-weight-bold">${json.municipio}</h4>
     <h5>Fecha: ${fechaActual}</h5>
-    <h5>Pacientes:</h5>
+    <div class="v-cp card">
+    <h5>Pacientes</h5>
     `;
 
   for (let i = 0; i < json.clasificaciones.length; i++) {
     html += `
-        <div class="v-cp card">
-            <h6 class="font-weight-bold">${json.clasificaciones[i].clasificacion}: ${json.clasificaciones[i].cantidad} </h6>`;
+        
+            <p class="mb-0">${json.clasificaciones[i].clasificacion}: ${json.clasificaciones[i].cantidad} </p>`;
     if (json.clasificaciones[i].observacion != "") {
       html += `<div class="v-comentario">
                 <p>${json.clasificaciones[i].observacion}</p>
             </div>`;
     }
-    html += `</div>`;
+    if (i < json.clasificaciones.length - 1) {
+      html += '<hr class="my-1">';
+    }
   }
-
+  html += `</div>`;
   html += `<div class="v-comentario"><p>Observaciones Generales: <br>${json.observacionesGenerales}</p></div>`;
   return html;
 }
@@ -102,19 +105,19 @@ function parteTexto(json) {
   const fechaActual = formatoFechaCompleta(json.fecha);
 
   let texto = `**${json.municipio}**
-  Fecha: ${fechaActual}\n 
-  Pacientes:\n`;
+🗓Fecha: ${fechaActual}\n
+😷Pacientes:\n`;
 
   for (let i = 0; i < json.clasificaciones.length; i++) {
-    texto += `${json.clasificaciones[i].clasificacion}: ${json.clasificaciones[i].cantidad} \n`;
+    texto += `   ▪️${json.clasificaciones[i].clasificacion}: ${json.clasificaciones[i].cantidad} \n`;
     if (json.clasificaciones[i].observacion != "") {
-      texto += `__Observacion: ${json.clasificaciones[i].observacion}__\n`;
+      texto += `__🩺Observacion: ${json.clasificaciones[i].observacion}__\n`;
     }
   }
 
   if (json.observacionesGenerales) {
     texto += "\n";
-    texto += `__ Observaciones Generales: \n ${json.observacionesGenerales}__`;
+    texto += `__👁Observaciones Generales: \n ${json.observacionesGenerales}__`;
   }
 
   // JSON STRING
