@@ -71,7 +71,9 @@ function crearParte() {
     area.html(html);
 
     //Visualizacion del parte en formato texto para enviar a whatsapp y su botón
-    area.append(`<textarea class="form-control">${texto}</textarea>`);
+    area.append(
+      `<textarea class="form-control" id="copytextarea">${texto}</textarea>`
+    );
     area.append(
       `<a class="btn btn-info" href="https://telegram.me/share/url?url=${encodeURI(
         "Parte Diario"
@@ -82,7 +84,13 @@ function crearParte() {
       </a>`
     );
 
-    window.localStorage.setItem("parte", JSON.stringify(parte));
+    area.append(
+      `<button class="btn btn-secondary " id="textareacopybtn" onclick="copyToClipboard()">
+      Copiar al Portapapeles
+      </button>`
+    );
+
+    //window.localStorage.setItem("parte", JSON.stringify(parte));
     //console.log(parte);
     //console.log(parteHtml);
     //console.log(parteTexto);
