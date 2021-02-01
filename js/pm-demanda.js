@@ -1,4 +1,14 @@
 $(document).ready(function () {
+  initClasificaciones();
+  $("#municipio").append('<option value="La Habana">La Habana</option>');
+});
+
+function reiniciar() {
+  $("#clasificacion-container").html("").removeClass("card");
+  initClasificaciones();
+}
+
+function initClasificaciones() {
   let index = 0;
   clasificaciones.forEach(function (element) {
     addNuevaClasificacion();
@@ -8,8 +18,7 @@ $(document).ready(function () {
 
     index += 1;
   });
-  $("#municipio").append('<option value="La Habana">La Habana</option>');
-});
+}
 
 /** Acción de añadir clasificacion
  * esto es como pa plantilla de las clasificaciones, cada vez que querramos crear una llamamos a esta funcion

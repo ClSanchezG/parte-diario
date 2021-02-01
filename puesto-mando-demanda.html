@@ -26,7 +26,7 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="form col-xl-6 col-sm-12">
+        <form class="form col-xl-6 col-sm-12" name="myform">
           <!--Esto ya esta todo en talla solo fijate en los id de los input para cuando generes el parte-->
           <h2 class="col-12">Solicitud de Demanda</h2>
           <h5 class="col-12 text-center">Puesto de Mando</h5>
@@ -53,7 +53,7 @@
               placeholder="Observaciones generales"
             ></textarea>
           </div>
-        </div>
+        </form>
 
         <div class="col-xl-6 col-sm-12 pt-sm-4 mt-sm-3" id="v-container">
           <div class="text-center">
@@ -61,6 +61,9 @@
             <button class="btn btn-info" onclick="crearParte()">
               <i class="fa fa-file-text"></i> CREAR PARTE
             </button>
+            <button class="btn btn-danger" onclick="myform.reset(); reiniciar()">
+              <i class="fa fa-trash"></i> Vaciar 
+            </input>
           </div>
 
           <div class="col-12" id="vista-previa"></div>
