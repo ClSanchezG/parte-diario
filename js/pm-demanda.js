@@ -5,6 +5,7 @@ $(document).ready(function () {
 
 function reiniciar() {
   $("#clasificacion-container").html("").removeClass("card");
+  $("#vista-previa").html("").removeClass("card");
   initClasificaciones();
 }
 
@@ -15,7 +16,6 @@ function initClasificaciones() {
     document.getElementById(`clasif-${index}`).value = element.clasificacion;
     document.getElementById(`clasif-${index}`).disabled = true;
     document.getElementById(`delete-${index}`).remove();
-
     index += 1;
   });
 }
