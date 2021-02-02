@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Formato de envio de partes diarios de la CUJAE
+     del movimento de voluntarios COVID-19"
+    />
+    <meta name="keywords" content="form js volunteers format whatsapp" />
+    <meta name="author" content="Claudia Sánchez García, CUJAE" />
+    <meta name="robots" content="noindex" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Parte Semanal</title>
+    <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" />
+    <link
+      href="modules/font-awesome/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <link href="css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="form col-xl-6 col-sm-12">
+          <!--Esto ya esta todo en talla solo fijate en los id de los input para cuando generes el parte-->
+          <h2 class="col-12">Parte Semanal</h2>
+          <h5 class="col-12 text-center">Universidades</h5>
+
+          <div class="form-group" id="sel-univ">
+            <!--Universidad-->
+            <label for="universidad">Universidad</label>
+            <select
+              class="form-control"
+              id="universidad"
+              name="universidad"
+            ></select>
+          </div>
+
+          <div class="form-group" id="sel-mun" hidden>
+            <!--Municipio-->
+            <label for="municipio">Municipio</label>
+            <select
+              class="form-control"
+              id="municipio"
+              name="municipio"
+            ></select>
+          </div>
+
+          <div id="tareas-container"><!--Clasificaciones--></div>
+          <button class="btn btn-success" onclick="addNuevaTarea()">
+            <i class="fa fa-plus"></i> Nueva Tarea
+          </button>
+
+          <div class="card">
+            <div class="form-group">
+              <!--Pedidos-->
+              <label for="m-pedidos">Total de Voluntarios</label>
+              <input
+                class="form-control"
+                type="number"
+                id="t-voluntarios"
+                min="0"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-6 col-sm-12 pt-sm-4 mt-sm-3" id="v-container">
+          <div class="text-center">
+            <!--La funcion crear parte esta en el fichero de js/pm-cierre.js-->
+            <button class="btn btn-info" onclick="crearParte()">
+              <i class="fa fa-file-text"></i> CREAR PARTE
+            </button>
+          </div>
+
+          <div class="col-12" id="vista-previa"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script src="modules/jquery/js/jquery-3.3.1.js"></script>
+  <script src="modules/bootstrap/js/popper.min.js"></script>
+  <script src="modules/bootstrap/js/bootstrap.min.js"></script>
+  <script src="data/tareas.js"></script>
+  <script src="data/municipios.js"></script>
+  <script src="data/universidades.js"></script>
+  <script src="js/objetos.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/copyToClipboard.js"></script>
+  <script src="js/municipio.js"></script>
+  <script src="js/tareas.js"></script>
+  <script src="js/parte-tareas.js"></script>
+</html>

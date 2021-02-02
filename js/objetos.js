@@ -30,6 +30,14 @@ function ClasificacionesDemanda() {
   this.observaciones = "";
 }
 
+function ParteTareas() {
+  this.universidad = "";
+  this.municipio = 0;
+  this.fecha = "";
+  this.tareas = [];
+  this.total_voluntarios = 0;
+}
+
 function ParteGeneral() {
   this.fecha = "";
   this.municipios = [];
