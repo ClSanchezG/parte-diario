@@ -4,22 +4,30 @@
 function crearParte() {
   let parte = new ParteTareas();
   parte.fecha = Date.now(); //Fecha
-
-  //parte.municipio = municipio.val(); //Municipio
   parte.universidad = universidad.val(); //Universidad
+  parte.total_voluntarios = 0;
 
-  parte.total_voluntarios = $("#t-voluntarios").val() || 0;
-
+  //Tareas
   let tareas = $(".covid-form");
-  console.log(tareas);
+
   for (let i = 0; i < tareas.length; i++) {
-    let v = tareas[i].querySelector(".tarea").checked;
-    console.log("v", v);
-    if (v) {
-      let tarea = tareas[i].querySelector(".tarea-label").value;
-      parte.tareas.push(tarea);
+    let t = new Tareas();
+    t.nombre = tareas[i].querySelector("#tarea-" + i).value;
+    let mun = $("#tarea-form-" + i + " .input-group").length;
+    for (let j = 0; j < mun; j++) {
+      let m = new TareasMun();
+      m.municipio = $("#select-mun-" + i + "-" + j).val();
+      m.cantidad = $("#tarea-cant-" + i + "-" + j).val();
+      t.total += parseInt(m.cantidad);
+      t.municipio_tarea.push(m);
     }
+    if (t.total.toString() !== "NaN") {
+      parte.total_voluntarios += t.total;
+    }
+    parte.tareas.push(t);
   }
+
+  //parte.total_voluntarios = 50;
 
   //Comprobar si el numero de activos es mayor que el total de voluntarios
   //if (parte.activos >= parte.total_voluntarios) {
@@ -42,14 +50,14 @@ function crearParte() {
     )}&text=${encodeURIComponent(
       texto
     )}" target="_blank" action="share/telegram/share" >
-      Enviar por Telegram
-      </a>`
+    Enviar por Telegram
+    </a>`
   );
 
   area.append(
     `<button class="btn btn-secondary " id="textareacopybtn" onclick="copyToClipboard()">
-      Copiar al Portapapeles
-      </button>`
+    Copiar al Portapapeles
+    </button>`
   );
 
   //window.localStorage.setItem("parte", JSON.stringify(parte));
@@ -65,12 +73,20 @@ function parteHTML(json) {
   const fechaActual = formatoFechaCompleta(json.fecha);
 
   let html = `
-      <h4 class="font-weight-bold">${json.universidad}</h4>
-      <h5>Día: ${fechaActual}</h5>
-      <h6><i class="fa fa-chevron-right"></i>  total voluntarios: ${json.total_voluntarios}</h6>
-       <h5>Tareas: </h5>`;
+    <h3 class="font-weight-bold">${json.universidad}</h3>
+    <h4>Día: ${fechaActual}</h4>
+    <h5><i class="fa fa-chevron-right"></i>  Total voluntarios: ${json.total_voluntarios}</h5>
+    <h4>Tareas: </h4>`;
   for (let i = 0; i < json.tareas.length; i++) {
-    html += `<h6>${json.tareas[i]}</h6>`;
+    if (json.tareas[i].total > 0) {
+      html += `<h5>${json.tareas[i].nombre}: ${json.tareas[i].total}</h5>`;
+      for (let j = 0; j < json.tareas[i].municipio_tarea.length; j++) {
+        if (json.tareas[i].municipio_tarea[j].municipio !== "NO SELECCIONADO") {
+          html += `<h6>${json.tareas[i].municipio_tarea[j].municipio}: ${json.tareas[i].municipio_tarea[j].cantidad}</h6>`;
+        }
+      }
+      html += `---------------------------------------------------`;
+    }
   }
 
   return html;
@@ -84,12 +100,19 @@ function parteTexto(json) {
   const fechaActual = formatoFechaCompleta(json.fecha);
 
   let texto = `**${json.universidad}**\n
-  🗓 Fecha: ${fechaActual} \n
-  💚 Total de voluntarios: ${json.total_voluntarios} \n
-  📝 Tareas:\n`;
+🗓 Fecha: ${fechaActual} \n
+💚 Total de voluntarios: ${json.total_voluntarios} \n
+📝 Tareas:\n`;
 
   for (let i = 0; i < json.tareas.length; i++) {
-    texto += `   • ${json.tareas[i]}\n`;
+    if (json.tareas[i].total > 0) {
+      texto += `   • ${json.tareas[i].nombre}: ${json.tareas[i].total}\n`;
+      for (let j = 0; j < json.tareas[i].municipio_tarea.length; j++) {
+        if (json.tareas[i].municipio_tarea[j].municipio !== "NO SELECCIONADO") {
+          texto += `      + ${json.tareas[i].municipio_tarea[j].municipio} : ${json.tareas[i].municipio_tarea[j].cantidad}\n`;
+        }
+      }
+    }
   }
 
   return texto;

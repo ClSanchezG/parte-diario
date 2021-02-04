@@ -32,10 +32,19 @@ function ClasificacionesDemanda() {
 
 function ParteTareas() {
   this.universidad = "";
-  this.municipio = 0;
   this.fecha = "";
   this.tareas = [];
   this.total_voluntarios = 0;
+}
+
+function Tareas() {
+  this.municipio_tarea = [];
+  this.nombre = "";
+  this.total = 0;
+}
+function TareasMun() {
+  this.municipio = "";
+  this.cantidad = 0;
 }
 
 function ParteGeneral() {
