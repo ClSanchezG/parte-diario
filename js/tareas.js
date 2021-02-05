@@ -22,8 +22,9 @@ function addNuevaTarea() {
         <select class="form-control municipio" id="select-mun-${count}-0" name="municipio">
             <option value="NO SELECCIONADO">Municipio</option>
         </select>
-        <input class="form-control tarea-cant col-12" type="number" id="tarea-cant-${count}-0" min="0" placeholder="Cantidad">
+        <input class="form-control tarea-cant col-12" type="number" id="tarea-cant-${count}-0" min="1" placeholder="Cantidad">
       </div>
+      <input class="form-control tarea-obs col-12" type="text" id="tarea-obs-${count}" min="0" placeholder="Observaciones">
     </div>`);
 
   let muni = $("#select-mun-" + count + "-0");
@@ -45,16 +46,17 @@ function deleteClasificacion(idNA) {
 function addNuevoMunicipio(idNA) {
   let container = $("#tarea-form-" + idNA);
   let count = $("#tarea-form-" + idNA + " .input-group").length;
+  document.getElementById(`tarea-obs-` + idNA).remove();
 
   container.append(`
       <div class="input-group">
         <select class="form-control municipio" id="select-mun-${idNA}-${count}" name="municipio">
           <option value="NO SELECCIONADO">Municipio</option>
         </select>
-        <input class="form-control tarea-cant col-12" type="number" id="tarea-cant-${idNA}-${count}" min="0" placeholder="Cantidad">
-         <div class="input-group-prepend">
-         </div>
-    </div>`);
+        <input class="form-control tarea-cant col-12" type="number" id="tarea-cant-${idNA}-${count}" min="1" placeholder="Cantidad">
+    </div>
+    <input class="form-control tarea-obs col-12" type="text" id="tarea-obs-${idNA}" min="0" placeholder="Observaciones">
+`);
 
   let muni = $("#select-mun-" + idNA + "-" + count);
   municipios.forEach(function (element) {
@@ -62,6 +64,7 @@ function addNuevoMunicipio(idNA) {
       '<option value="' + element.nombre + '">' + element.nombre + "</option>"
     );
   });
+  muni.append('<option value="La Habana">La Habana</option>');
 }
 
 function reiniciar() {

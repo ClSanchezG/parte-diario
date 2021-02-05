@@ -2,94 +2,109 @@
 /** Acción del botón de Crear Parte
  */
 function crearParte() {
-  let parte = new ParteTareas();
-  parte.fecha = Date.now(); //Fecha
-  parte.universidad = universidad.val(); //Universidad
-  parte.total_voluntarios = 0;
+    let parte = new ParteTareas();
+    parte.fecha = Date.now(); //Fecha
+    parte.universidad = universidad.val(); //Universidad
+    parte.total_voluntarios = 0;
+    parte.observaciones = $("#observaciones").val();
 
-  //Tareas
-  let tareas = $(".covid-form");
+    //Tareas
+    let tareas = $(".covid-form");
 
-  for (let i = 0; i < tareas.length; i++) {
-    let t = new Tareas();
-    t.nombre = tareas[i].querySelector("#tarea-" + i).value;
-    let mun = $("#tarea-form-" + i + " .input-group").length;
-    for (let j = 0; j < mun; j++) {
-      let m = new TareasMun();
-      m.municipio = $("#select-mun-" + i + "-" + j).val();
-      m.cantidad = $("#tarea-cant-" + i + "-" + j).val();
-      t.total += parseInt(m.cantidad);
-      t.municipio_tarea.push(m);
+    for (let i = 0; i < tareas.length; i++) {
+        let t = new Tareas();
+        t.nombre = tareas[i].querySelector("#tarea-" + i).value;
+        t.observaciones = tareas[i].querySelector("#tarea-obs-" + i).value;
+        console.log(t.observaciones);
+        let mun = $("#tarea-form-" + i + " .input-group").length
+        for (let j = 0; j < mun; j++){
+            let m = new TareasMun();
+            m.municipio = $("#select-mun-" + i +"-" + j).val();
+            m.cantidad = $("#tarea-cant-" + i +"-" + j).val();
+            t.total += parseInt(m.cantidad);
+            t.municipio_tarea.push(m);
+        }
+        if(t.total.toString() !== "NaN") {
+            parte.total_voluntarios += t.total;
+        }
+        parte.tareas.push(t);
     }
-    if (t.total.toString() !== "NaN") {
-      parte.total_voluntarios += t.total;
-    }
-    parte.tareas.push(t);
-  }
+    console.log(parte);
 
-  //parte.total_voluntarios = 50;
+    //parte.total_voluntarios = 50;
 
-  //Comprobar si el numero de activos es mayor que el total de voluntarios
-  //if (parte.activos >= parte.total_voluntarios) {
-  //formato para Web y Whatsapp
-  let html = parteHTML(parte);
-  let texto = parteTexto(parte);
 
-  //Añadiendo clase para css de la vista previa y incrustando el parte en el formato HTML
+    //Comprobar si el numero de activos es mayor que el total de voluntarios
+    //if (parte.activos >= parte.total_voluntarios) {
+    //formato para Web y Whatsapp
+    let html = parteHTML(parte);
+    let texto = parteTexto(parte);
 
-  let area = $("#vista-previa").addClass("card");
-  area.html(html);
+    //Añadiendo clase para css de la vista previa y incrustando el parte en el formato HTML
 
-  //Visualizacion del parte en formato texto para enviar a whatsapp y su botón
-  area.append(
-    `<textarea class="form-control" id="copytextarea">${texto}</textarea>`
-  );
-  area.append(
-    `<a class="btn btn-info" href="https://telegram.me/share/url?url=${encodeURI(
-      "Parte Semanal"
-    )}&text=${encodeURIComponent(
-      texto
-    )}" target="_blank" action="share/telegram/share" >
-    Enviar por Telegram
-    </a>`
-  );
+    let area = $("#vista-previa").addClass("card");
+    area.html(html);
 
-  area.append(
-    `<button class="btn btn-secondary " id="textareacopybtn" onclick="copyToClipboard()">
-    Copiar al Portapapeles
-    </button>`
-  );
+    //Visualizacion del parte en formato texto para enviar a whatsapp y su botón
+    area.append(
+        `<textarea class="form-control" id="copytextarea">${texto}</textarea>`
+    );
+    area.append(
+        `<a class="btn btn-info" href="https://telegram.me/share/url?url=${encodeURI(
+            "Parte Semanal"
+        )}&text=${encodeURIComponent(
+            texto
+        )}" target="_blank" action="share/telegram/share" >
+      Enviar por Telegram
+      </a>`
+    );
 
-  //window.localStorage.setItem("parte", JSON.stringify(parte));
-  //console.log(parte);
-  //console.log(parteHtml);
-  //console.log(parteTexto);
+    area.append(
+        `<button class="btn btn-secondary " id="textareacopybtn" onclick="copyToClipboard()">
+      Copiar al Portapapeles
+      </button>`
+    );
+
+    //window.localStorage.setItem("parte", JSON.stringify(parte));
+    //console.log(parte);
+    //console.log(parteHtml);
+    //console.log(parteTexto);
 }
 /** Genera el parte en formato HTML
  * @param json formato de datos
  * @returns {string} listo para añadir al elemento contenedor
  */
 function parteHTML(json) {
-  const fechaActual = formatoFechaCompleta(json.fecha);
+    const fechaActual = formatoFechaCompleta(json.fecha);
 
-  let html = `
-    <h3 class="font-weight-bold">${json.universidad}</h3>
-    <h4>Día: ${fechaActual}</h4>
-    <h5><i class="fa fa-chevron-right"></i>  Total voluntarios: ${json.total_voluntarios}</h5>
-    <h4>Tareas: </h4>`;
-  for (let i = 0; i < json.tareas.length; i++) {
-    if (json.tareas[i].total > 0) {
-      html += `<h5>${json.tareas[i].nombre}: ${json.tareas[i].total}</h5>`;
-      for (let j = 0; j < json.tareas[i].municipio_tarea.length; j++) {
-        if (json.tareas[i].municipio_tarea[j].municipio !== "NO SELECCIONADO") {
-          html += `<h6>${json.tareas[i].municipio_tarea[j].municipio}: ${json.tareas[i].municipio_tarea[j].cantidad}</h6>`;
+    let html = `
+      <h3 class="font-weight-bold">${json.universidad}</h3>
+      <h4>Día: ${fechaActual}</h4>
+      <h5><i class="fa fa-chevron-right"></i>  Total voluntarios: ${json.total_voluntarios}</h5>
+      <h4>Tareas: </h4>`;
+    for (let i = 0; i < json.tareas.length; i++) {
+        if (json.tareas[i].total > 0) {
+            html += `<h5>${json.tareas[i].nombre}: ${json.tareas[i].total}</h5>`;
+            for (let j = 0; j < json.tareas[i].municipio_tarea.length; j++) {
+                if (json.tareas[i].municipio_tarea[j].municipio !== "NO SELECCIONADO") {
+                    html += `<h6>${json.tareas[i].municipio_tarea[j].municipio}: ${json.tareas[i].municipio_tarea[j].cantidad}</h6>`;
+                }
+            }
+            if (json.tareas[i].observaciones !== "") {
+                html += `<div class="v-comentario">
+                <p>${json.tareas[i].observaciones}</p>
+            </div>`;
+            }
+            html += `---------------------------------------------------`;
+
         }
-      }
-      html += `---------------------------------------------------`;
     }
-  }
+    if (json.observaciones) {
 
-  return html;
+        html += `<div class="v-comentario"><p>Observaciones Generales: <br>${json.observaciones}</p></div>`;
+    }
+
+    return html;
 }
 
 /** genera el parte en formato texto para ser enviado a Whatsapp
@@ -97,23 +112,32 @@ function parteHTML(json) {
  * @returns {string} Listo para enviar a mensaje de Whatsapp
  */
 function parteTexto(json) {
-  const fechaActual = formatoFechaCompleta(json.fecha);
+    const fechaActual = formatoFechaCompleta(json.fecha);
 
-  let texto = `**${json.universidad}**\n
-🗓 Fecha: ${fechaActual} \n
-💚 Total de voluntarios: ${json.total_voluntarios} \n
-📝 Tareas:\n`;
+    let texto = `**${json.universidad}**\n
+  🗓 Fecha: ${fechaActual} \n
+  💚 Total de voluntarios: ${json.total_voluntarios} \n
+  📝 Tareas:\n`;
 
-  for (let i = 0; i < json.tareas.length; i++) {
-    if (json.tareas[i].total > 0) {
-      texto += `   • ${json.tareas[i].nombre}: ${json.tareas[i].total}\n`;
-      for (let j = 0; j < json.tareas[i].municipio_tarea.length; j++) {
-        if (json.tareas[i].municipio_tarea[j].municipio !== "NO SELECCIONADO") {
-          texto += `      + ${json.tareas[i].municipio_tarea[j].municipio} : ${json.tareas[i].municipio_tarea[j].cantidad}\n`;
+    for (let i = 0; i < json.tareas.length; i++) {
+        if (json.tareas[i].total > 0) {
+            texto += `   • ${json.tareas[i].nombre}: ${json.tareas[i].total}\n`;
+            for (let j = 0; j < json.tareas[i].municipio_tarea.length; j++) {
+                if (json.tareas[i].municipio_tarea[j].municipio !== "NO SELECCIONADO") {
+                    texto += `      + ${json.tareas[i].municipio_tarea[j].municipio} : ${json.tareas[i].municipio_tarea[j].cantidad}\n`;
+                }
+            }
+            if (json.tareas[i].observaciones != "") {
+                texto += `__🩺Observaciones: ${json.tareas[i].observaciones}__\n`;
+            }
+            texto += "\n";
         }
-      }
     }
-  }
 
-  return texto;
+    if (json.observaciones) {
+        texto += "\n";
+        texto += `__👁Observaciones Generales: \n ${json.observaciones}__`;
+    }
+
+    return texto;
 }
