@@ -1,9 +1,9 @@
-const municipios =[
+const municipios = [
   {
-    "nombre" : "Arroyo Naranjo",
-    "cp": [
+    nombre: "Arroyo Naranjo",
+    cp: [
       "Callejas",
-      "Calvario" ,
+      "Calvario",
       "Eléctrico",
       "Güinera",
       "Los Pinos",
@@ -11,46 +11,45 @@ const municipios =[
       "Mantilla",
       "Párraga",
       "Poey",
-      "Vibora Park"
-    ]
+      "Vibora Park",
+    ],
   },
+
   {
-    "nombre" : "Boyeros",
-    "cp" : [
+    nombre: "Boyeros",
+    cp: [
       "Altahabana - Capdevila",
       "Armada - Aldabó",
       "Calabazar",
       "Nuevo Santiago",
       "Rancho Boyeros",
       "Santiago de las Vegas",
-      "Wajay"
-    ]
+      "Wajay",
+    ],
   },
   {
-    "nombre" : "Centro Habana",
-    "cp" : [
-      "Cayo Hueso",
-      "Colón",
-      "Dragones",
-      "Los Sitios",
-      "Pueblo Nuevo"
-    ]
+    nombre: "Centro Habana",
+    cp: ["Cayo Hueso", "Colón", "Dragones", "Los Sitios", "Pueblo Nuevo"],
   },
   {
-    "nombre" : "Cerro",
-    "cp" : [
+    nombre: "Cerro",
+    cp: [
       "Armada",
       "Cerro",
       "El Canal",
       "Las Cañas",
       "Latinoamericano",
       "Pilar - Atarés",
-      "Platino"
-    ]
+      "Platino",
+    ],
   },
   {
-    "nombre" : "Diez de Octubre",
-    "cp" : [
+    nombre: "Cotorro",
+    cp: [],
+  },
+  {
+    nombre: "Diez de Octubre",
+    cp: [
       "Acosta",
       "Jesús del Monte",
       "Lawton",
@@ -59,12 +58,12 @@ const municipios =[
       "Sevillano",
       "Tamarindo",
       "Víbora",
-      "Vista Alegre"
-    ]
+      "Vista Alegre",
+    ],
   },
   {
-    "nombre" : "Guanabacoa",
-    "cp" : [
+    nombre: "Guanabacoa",
+    cp: [
       "Chibás - Roble",
       "Dbeche - Nalón",
       "La Jata - Naranjo",
@@ -73,11 +72,11 @@ const municipios =[
       "Santa Fé - Peñalver - Bacuranao",
       "Villa I",
       "Villa II",
-    ]
+    ],
   },
   {
-    "nombre" : "Habana del Este",
-    "cp" : [
+    nombre: "Habana del Este",
+    cp: [
       "Alamar - Playa",
       "Alamar Este",
       "Alturas de Alamar",
@@ -85,47 +84,47 @@ const municipios =[
       "Camilo Cienfuegos",
       "Campo Florido",
       "Cojimar",
-      "Guanabo"
-    ]
+      "Guanabo",
+    ],
   },
   {
-    "nombre" : "Habana Vieja",
-    "cp" : [
+    nombre: "Habana Vieja",
+    cp: [
       "Belén",
       "Catedral",
       "Jesús María",
       "Plaza Vieja",
       "Prado",
       "San Isidro",
-      "Talla Piedra"
-    ]
+      "Talla Piedra",
+    ],
   },
   {
-    "nombre" : "La Lisa",
-    "cp" : [
+    nombre: "La Lisa",
+    cp: [
       "Alturas de la Lisa",
       "Arroyo Arenas",
       "Balcón Arimao",
       "El Cano - Valle Grande - Bello 26 y Morado",
       "Punta Brava",
       "San Agustín",
-      "Versalles - Coronela"
-    ]
+      "Versalles - Coronela",
+    ],
   },
   {
-    "nombre" : "Marianao",
-    "cp" : [
+    nombre: "Marianao",
+    cp: [
       "Belén - Finlay - Pogolotti",
       "CAI - Los Angeles",
       "Libertad",
       "Pocito  - Palmar",
       "Santa Felicia",
-      "Zamora"
-    ]
+      "Zamora",
+    ],
   },
   {
-    "nombre" : "Playa",
-    "cp" : [
+    nombre: "Playa",
+    cp: [
       "Ampliación Almendares",
       "Buenavista",
       "Cubanacán - Náutico",
@@ -133,39 +132,35 @@ const municipios =[
       "La Ceiba - Kholy",
       "Miramar",
       "Santa Fé",
-      "Sierra - Almendares"
-    ]
+      "Sierra - Almendares",
+    ],
   },
   {
-    "nombre" : "Plaza de la Revolución",
-    "cp" : [
+    nombre: "Plaza de la Revolución",
+    cp: [
       "Colón - Nuevo Vedado",
       "El Carmelo",
       "Nuevo Vedado - Puentes Grandes",
       "Plaza",
       "Príncipe",
       "Rampa",
-      "Vedado - Malecón"
-    ]
+      "Vedado - Malecón",
+    ],
   },
   {
-    "nombre" : "Regla",
-    "cp" : [
-      "Casablanca",
-      "Guaicanamar",
-      "Loma - Modelo"
-    ]
+    nombre: "Regla",
+    cp: ["Casablanca", "Guaicanamar", "Loma - Modelo"],
   },
+
   {
-    "nombre" : "San Miguel del Padrón",
-    "cp" : [
+    nombre: "San Miguel del Padrón",
+    cp: [
       "Diezmero",
       "Dolores - Veracruz",
       "Jacomino",
       "Luyanó Moderno",
       "Rocafort",
-      "San Francisco de Paula"
-    ]
-  }
+      "San Francisco de Paula",
+    ],
+  },
 ];
-

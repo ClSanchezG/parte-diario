@@ -10,6 +10,7 @@ $(document).ready(function () {
     index += 1;
   });
   $("#municipio").append('<option value="La Habana">La Habana</option>');
+  $("#municipio").append('<option value="Otro">Otro</option>');
 });
 
 /** Acción de añadir clasificacion
