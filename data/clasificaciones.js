@@ -21,6 +21,6 @@ const clasificaciones = [
   },
   {
     id: "F",
-    clasificacion: "Contactos de primer orden",
+    clasificacion: "Niños",
   },
 ];
